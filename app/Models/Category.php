@@ -10,10 +10,14 @@ class Category extends Model
 {
     use HasFactory;
 
+    public const SECTION_FOOD = 'food';
+    public const SECTION_DRINK = 'drink';
+
     protected $fillable = [
         'name_en',
         'name_fr',
         'slug',
+        'section',
         'description_en',
         'description_fr',
         'is_deliverable',
@@ -25,6 +29,16 @@ class Category extends Model
         'is_deliverable' => 'boolean',
         'is_visible' => 'boolean',
     ];
+
+    public function scopeFood($query)
+    {
+        return $query->where('section', self::SECTION_FOOD);
+    }
+
+    public function scopeDrink($query)
+    {
+        return $query->where('section', self::SECTION_DRINK);
+    }
 
     /**
      * Get the menu items for this category.
@@ -54,6 +68,10 @@ class Category extends Model
 
     public function getActiveMenuItems()
     {
-        return $this->menuItems()->where('is_active', true)->where('is_available', true)->orderBy('sort_order')->get();
+        return $this->menuItems()
+            ->where('is_visible', true)
+            ->where('is_available', true)
+            ->orderBy('sort_order')
+            ->get();
     }
 }

@@ -3,46 +3,51 @@ export default {
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
-    "./resources/**/*.vue",
     "./app/Filament/**/*.php",
   ],
   theme: {
     extend: {
       colors: {
+        ink: {
+          DEFAULT: '#0E0E0E',
+          soft: '#1C1A17',
+          muted: '#6B6258',
+        },
+        paper: {
+          DEFAULT: '#F7F3EC',
+          warm: '#EFE8DB',
+          deep: '#E6DFD0',
+        },
+        brand: {
+          DEFAULT: '#B8860B',
+          light: '#D6AB39',
+          dark: '#8F6908',
+        },
+        ember: {
+          DEFAULT: '#B8381F',
+          light: '#D4543B',
+          dark: '#8F2A16',
+        },
+        /* legacy aliases kept so old blades don't break mid-rebuild */
         primary: '#B8860B',
         'primary-light': '#D6AB39',
-        'primary-dark': '#9A7209',
-        secondary: '#1A1A1A',
+        'primary-dark': '#8F6908',
+        secondary: '#1C1A17',
         accent: '#B8860B',
-        dark: '#1A1A1A',
+        dark: '#0E0E0E',
         light: '#FFFFFF',
-        gray: {
-          100: '#F5F5F5',
-          200: '#EEEEEE',
-          300: '#E0E0E0',
-          400: '#BDBDBD',
-          500: '#9E9E9E',
-          600: '#757575',
-          700: '#616161',
-          800: '#424242',
-          900: '#212121',
-        }
-      },
-      screens: {
-        'xs': '475px',
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
-        '2xl': '1536px',
       },
       fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
-        display: ['Playfair Display', 'serif'],
+        sans: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
       },
       boxShadow: {
-        'card': '0 4px 6px rgba(0, 0, 0, 0.05)',
-        'card-hover': '0 15px 30px rgba(0, 0, 0, 0.1)',
+        'card': '0 1px 2px rgba(14,14,14,0.04), 0 8px 24px rgba(14,14,14,0.06)',
+        'card-hover': '0 4px 12px rgba(14,14,14,0.08), 0 24px 48px rgba(14,14,14,0.12)',
+        'inset-line': 'inset 0 -1px 0 rgba(14,14,14,0.08)',
+      },
+      letterSpacing: {
+        'eyebrow': '0.18em',
       },
     },
   },
@@ -50,4 +55,4 @@ export default {
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
   ],
-} 
+}

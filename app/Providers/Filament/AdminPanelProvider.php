@@ -60,17 +60,10 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-<<<<<<< HEAD
             ->authMiddleware([
                 Authenticate::class,
                 EnsureUserIsAdmin::class,
             ])
-=======
-            // ->authMiddleware([
-            //     Authenticate::class,
-            //     \App\Http\Middleware\AdminAccessMiddleware::class,
-            // ])
->>>>>>> c7ba6d7934d22d5740e2276287a3c426467fdb82
             ->navigationGroups([
                 'Menu Management',
                 'Order Management',

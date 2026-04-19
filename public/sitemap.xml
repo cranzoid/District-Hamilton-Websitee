@@ -1,222 +1,543 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<<<<<<< HEAD
-    <!-- Home Page -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
-        <loc>https://district-hamilton.com/</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-    </url>
-
-    <!-- Menu Pages -->
-    <url>
-        <loc>https://district-hamilton.com/menu</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- About Page -->
-    <url>
-        <loc>https://district-hamilton.com/about</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Contact Page -->
-    <url>
-        <loc>https://district-hamilton.com/contact</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Events Page -->
-    <url>
-        <loc>https://district-hamilton.com/events</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Gift Cards Page -->
-    <url>
-        <loc>https://district-hamilton.com/gift-cards</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Legal Pages -->
-    <url>
-        <loc>https://district-hamilton.com/terms</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://district-hamilton.com/privacy</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-</urlset> 
-=======
-    <url>
-        <loc>http://districttapasham.com</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost</loc>
+        <lastmod>2026-04-18T14:09:26-04:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu</loc>
+        <lastmod>2026-04-18T14:09:26-04:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/about</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/daily-offers</loc>
+        <lastmod>2026-04-18T14:09:26-04:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://localhost/about</loc>
+        <lastmod>2026-04-18T14:09:26-04:00</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/contact</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/events</loc>
+        <lastmod>2026-04-18T14:09:26-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>http://localhost/contact</loc>
+        <lastmod>2026-04-18T14:09:26-04:00</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/events</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>http://districttapasham.com/terms</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/gift-cards</loc>
+        <lastmod>2026-04-18T14:09:26-04:00</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
+        <priority>0.6</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/privacy</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
+        <loc>http://localhost/terms</loc>
+        <lastmod>2026-04-18T14:09:26-04:00</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/category/tapas</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <loc>http://localhost/privacy</loc>
+        <lastmod>2026-04-18T14:09:26-04:00</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/category/entrees</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>http://districttapasham.com/menu/category/dessert</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>http://districttapasham.com/menu/item/soy-kissed-sprouts</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/tapas</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/herbalicious-croquettes</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/entrees</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/buffalo-bloomers</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/desserts</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/no-mis-steaks</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/signature-cocktails</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/capri-dip</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/classic-cocktails</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/cluckin-trio</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/margaritas</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/swine-about-it</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/mocktails</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/soy-long-meat</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/beers</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/in-the-fennel</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/wines</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/winner-winner-chicken-dinner</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/shooters</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/legen-dairy</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/category/cafe</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/can-i-get-uhsalmon</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/item/crispy-glazed-brussels-sprouts</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.6</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/district-shenanigans</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/item/spicy-creamy-mushrooms</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.6</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/levantine-stack</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/item/capri-dip</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.6</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/forgotten-custard</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/item/buffalo-cauliflower-bites</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.6</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/milk-bread-revival</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/item/herbalicious-croquettes</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.6</priority>
     </url>
     <url>
-        <loc>http://districttapasham.com/menu/item/deviled-mushrooms</loc>
-        <lastmod>2025-05-31T21:20:00+00:00</lastmod>
+        <loc>http://localhost/menu/item/chimichurri-steak-frites</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/bbq-duck-bao-buns</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/crispy-chicken-slider-trio</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/salmon-fingers</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/bao-mac</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/apple-glazed-pork-belly</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/shrimp-mac-and-cheese</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/shepherds-pie-with-beef-gravy</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/beef-spring-rolls</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/fried-chicken-sandwich</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/fish-and-chips</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/creamy-alfredo-gnocchi</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/the-district-burger</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/steak-and-cheese-sandwich</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/new-york-style-cheesecake</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/milk-and-bread-revival</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/one-less-problem</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/gordie-howe-hat-trick</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/twilight-elixir</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/the-smoky-whisper</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/royal-aperitivo</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/emerald-city</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/negroni</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/old-fashioned</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/espresso-martini</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/martini</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/whisky-sour</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/paper-plane</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/bartenders-choice</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/strawberry-mezcal</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/dreamsicle</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/spicy-blue</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/grenadine-glow</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/pornstar-martini</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/virgin-mojito</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/strawberry-lemonade</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/district-sour</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/paradise-cream</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/stella</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/corona</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/coors-light</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/budweiser</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/michelob-ultra</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/craft-beer</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/non-alcoholic-beer</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/cider</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/cab-nero</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/cabernet-franc</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/shiraz</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/cabernet-sauvignon</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/pinot-grigio</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/chardonnay</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/sauvignon-blanc</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/fortune-rose</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/cave-springs-rose</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/blu-giovello</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/spumante-bambino</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/bjs-shooter</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/polar-bear</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/melon-drop</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/burnt-reynolds</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/tea</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/coffee</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/juice</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/menu/item/pop</loc>
+        <lastmod>2026-04-17T08:00:00-04:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
     </url>
 </urlset>
->>>>>>> c7ba6d7934d22d5740e2276287a3c426467fdb82

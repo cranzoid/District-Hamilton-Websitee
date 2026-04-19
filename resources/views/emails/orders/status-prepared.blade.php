@@ -1,107 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Prepared</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            background-color: #4a2511;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        .logo {
-            max-width: 150px;
-            margin-bottom: 10px;
-        }
-        .content {
-            padding: 20px;
-            background-color: #fff;
-        }
-        .footer {
-            background-color: #f5f5f5;
-            padding: 15px;
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-        }
-        h1 {
-            color: #4a2511;
-            margin-top: 0;
-        }
-        .order-details {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-        .status-badge {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #FF9800;
-            color: white;
-            border-radius: 3px;
-            font-size: 14px;
-        }
-        .next-steps {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e8f5e9;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h2>District Tapas Bar & Restaurant</h2>
-        </div>
-        
-        <div class="content">
-            <h1>Your Order Has Been Prepared</h1>
-            
-            <p>Hello {{ $order->customer_name }},</p>
-            
-            <p>Your order <strong>#{{ $order->order_number }}</strong> has been prepared.</p>
-            
-            <div class="status-badge">Prepared</div>
-            
-            <div class="order-details">
-                <p><strong>Order Type:</strong> {{ ucfirst($order->order_type) }}</p>
-                <p><strong>Order Number:</strong> #{{ $order->order_number }}</p>
-            </div>
-            
-            <div class="next-steps">
-                @if($order->isPickup())
-                <h3>What's Next?</h3>
-                <p>We'll notify you as soon as your order is ready for pickup.</p>
-                <p>Please be prepared to provide your order number when you arrive.</p>
-                @else
-                <h3>What's Next?</h3>
-                <p>Your order will be out for delivery shortly. We'll notify you when it's on the way.</p>
-                @endif
-            </div>
-            
-            <p>Thank you for choosing District Tapas Bar & Restaurant!</p>
-        </div>
-        
-        <div class="footer">
-            <p>© {{ date('Y') }} District Tapas Bar & Restaurant. All rights reserved.</p>
-            <p>If you have any questions, please contact us at {{ config('restaurant.phone', '(XXX) XXX-XXXX') }}</p>
-        </div>
+@extends('emails.layout')
+
+@section('title', 'Order prepared · #' . $order->order_number)
+@section('preheader', 'Order #' . $order->order_number . ' has been prepared.')
+@section('eyebrow', 'Status · Prepared')
+@section('heading', 'Off the pass.')
+@section('subheading', 'Hi ' . $order->customer_name . ' — order #' . $order->order_number . ' is plated and ready for the next step.')
+
+@section('content')
+    <div style="text-align:center; margin-bottom:28px;">
+        <span style="display:inline-block; padding:6px 16px; background:#FFF4E5; color:#B8860B; border-radius:999px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; font-weight:700;">Prepared</span>
     </div>
-</body>
-</html> 
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; width:40%;">Order</td><td style="padding:6px 0; font-weight:600;">#{{ $order->order_number }}</td></tr>
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Type</td><td style="padding:6px 0;">{{ ucfirst($order->order_type) }}</td></tr>
+    </table>
+
+    <div style="background:#FAF7F1; border-left:3px solid #B8860B; padding:20px 22px; border-radius:6px;">
+        <div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#B8860B; font-weight:600; margin-bottom:8px;">What's next</div>
+        @if($order->isPickup())
+            <p style="margin:0; color:#2A2A2A; line-height:1.6;">We'll ping you the moment your order is ready for pickup. Please have your order number handy when you arrive.</p>
+        @else
+            <p style="margin:0; color:#2A2A2A; line-height:1.6;">Your order is about to head out the door. We'll send another note the second it's on the way.</p>
+        @endif
+    </div>
+
+    <p style="margin-top:28px; font-size:13px; color:#777; text-align:center;">Thanks for choosing The District.</p>
+@endsection

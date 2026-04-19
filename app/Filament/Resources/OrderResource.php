@@ -5,14 +5,16 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
+use App\Notifications\OrderStatusChanged;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification as FilamentNotification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Notification;
 
 class OrderResource extends Resource
 {
@@ -112,6 +114,7 @@ class OrderResource extends Resource
                                 'pending' => 'Pending',
                                 'paid' => 'Paid',
                                 'failed' => 'Failed',
+                                'refunded' => 'Refunded',
                             ])
                             ->required(),
                             
@@ -177,6 +180,7 @@ class OrderResource extends Resource
                         'warning' => 'pending',
                         'success' => 'paid',
                         'danger' => 'failed',
+                        'secondary' => 'refunded',
                     ]),
                     
                 Tables\Columns\TextColumn::make('created_at')
@@ -231,6 +235,71 @@ class OrderResource extends Resource
                     ->url(fn (Order $record): string => route('orders.print', $record))
                     ->openUrlInNewTab()
                     ->icon('heroicon-o-printer'),
+                Tables\Actions\Action::make('mark_preparing')
+                    ->label('Confirm')
+                    ->icon('heroicon-o-fire')
+                    ->color('warning')
+                    ->visible(fn (Order $record) => $record->status === 'pending')
+                    ->requiresConfirmation()
+                    ->action(function (Order $record) {
+                        $oldStatus = $record->status;
+                        $record->update(['status' => 'preparing']);
+                        Notification::route('mail', $record->customer_email)
+                            ->notify(new OrderStatusChanged($record, $oldStatus));
+                        FilamentNotification::make()->title('Order marked as Preparing')->success()->send();
+                    }),
+                Tables\Actions\Action::make('mark_ready')
+                    ->label('Ready')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->visible(fn (Order $record) => $record->status === 'preparing')
+                    ->requiresConfirmation()
+                    ->action(function (Order $record) {
+                        $oldStatus = $record->status;
+                        $record->update(['status' => 'ready']);
+                        Notification::route('mail', $record->customer_email)
+                            ->notify(new OrderStatusChanged($record, $oldStatus));
+                        FilamentNotification::make()->title('Order marked as Ready')->success()->send();
+                    }),
+                Tables\Actions\Action::make('mark_out_for_delivery')
+                    ->label('Out for Delivery')
+                    ->icon('heroicon-o-truck')
+                    ->color('info')
+                    ->visible(fn (Order $record) => $record->status === 'ready' && $record->order_type === 'delivery')
+                    ->requiresConfirmation()
+                    ->action(function (Order $record) {
+                        $oldStatus = $record->status;
+                        $record->update(['status' => 'out_for_delivery']);
+                        Notification::route('mail', $record->customer_email)
+                            ->notify(new OrderStatusChanged($record, $oldStatus));
+                        FilamentNotification::make()->title('Order marked as Out for Delivery')->success()->send();
+                    }),
+                Tables\Actions\Action::make('mark_completed')
+                    ->label('Complete')
+                    ->icon('heroicon-o-check-badge')
+                    ->color('success')
+                    ->visible(fn (Order $record) => in_array($record->status, ['ready', 'out_for_delivery']))
+                    ->requiresConfirmation()
+                    ->action(function (Order $record) {
+                        $oldStatus = $record->status;
+                        $record->update(['status' => 'completed']);
+                        Notification::route('mail', $record->customer_email)
+                            ->notify(new OrderStatusChanged($record, $oldStatus));
+                        FilamentNotification::make()->title('Order completed')->success()->send();
+                    }),
+                Tables\Actions\Action::make('cancel')
+                    ->label('Cancel')
+                    ->icon('heroicon-o-x-circle')
+                    ->color('danger')
+                    ->visible(fn (Order $record) => !in_array($record->status, ['completed', 'canceled']))
+                    ->requiresConfirmation()
+                    ->action(function (Order $record) {
+                        $oldStatus = $record->status;
+                        $record->update(['status' => 'canceled']);
+                        Notification::route('mail', $record->customer_email)
+                            ->notify(new OrderStatusChanged($record, $oldStatus));
+                        FilamentNotification::make()->title('Order cancelled')->warning()->send();
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -259,6 +328,14 @@ class OrderResource extends Resource
                             }
                         }),
                 ]),
+            ])
+            ->headerActions([
+                Tables\Actions\Action::make('export_csv')
+                    ->label('Export CSV')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('gray')
+                    ->url(route('admin.orders.export'))
+                    ->openUrlInNewTab(),
             ])
             ->defaultSort('created_at', 'desc');
     }

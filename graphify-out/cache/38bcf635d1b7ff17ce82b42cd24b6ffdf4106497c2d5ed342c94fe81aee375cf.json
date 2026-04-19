@@ -1,0 +1,1 @@
+{"nodes": [{"id": "resources_views_emails_orders_status_confirmed_blade_php", "label": "status-confirmed.blade.php", "file_type": "code", "source_file": "resources/views/emails/orders/status-confirmed.blade.php", "source_location": null}], "edges": []}
