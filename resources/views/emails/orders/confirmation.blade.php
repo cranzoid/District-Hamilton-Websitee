@@ -1,169 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Order Confirmation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #4F46E5;
-            padding-bottom: 15px;
-        }
-        .logo {
-            max-width: 150px;
-            height: auto;
-        }
-        h1 {
-            color: #4F46E5;
-            margin-top: 0;
-        }
-        h2 {
-            color: #4F46E5;
-            margin-top: 20px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        .order-info {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-        }
-        th {
-            background-color: #f5f5f5;
-        }
-        .total-row {
-            font-weight: bold;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 14px;
-            color: #666;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-        }
-        .btn {
-            display: inline-block;
-            background-color: #4F46E5;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <img src="{{ asset('images/logo.png') }}" alt="The District Tapas Bar Logo" class="logo">
-            <h1>Order Confirmation</h1>
-        </div>
-        
-        <p>Hello {{ $customerName }},</p>
-        
-        <p>Thank you for your order! We've received your order and are processing it now.</p>
-        
-        <div class="order-info">
-            <p><strong>Order Number:</strong> {{ $orderNumber }}</p>
-            <p><strong>Order Type:</strong> {{ ucfirst($orderType) }}</p>
-            <p><strong>Order Status:</strong> {{ ucfirst($orderStatus) }}</p>
-            <p><strong>Payment Method:</strong> {{ ucfirst(str_replace('_', ' ', $paymentMethod)) }}</p>
-            <p><strong>Payment Status:</strong> {{ ucfirst($paymentStatus) }}</p>
-            
-            @if($pickupTime)
-            <p><strong>Pickup/Delivery Time:</strong> {{ $pickupTime->format('F j, Y, g:i a') }}</p>
-            @else
-            <p><strong>Pickup/Delivery Time:</strong> As soon as possible</p>
-            @endif
-        </div>
-        
-        <h2>Order Summary</h2>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($items as $item)
-                <tr>
-                    <td>
-                        {{ $item->menuItem->name ?? 'Unknown Item' }}
-                        @if($item->special_instructions)
-                        <br><small><em>Instructions: {{ $item->special_instructions }}</em></small>
-                        @endif
-                        @if($item->addOns->count() > 0)
-                        <br><small>Add-ons: {{ $item->addOns->pluck('name')->join(', ') }}</small>
-                        @endif
-                    </td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>${{ number_format($item->subtotal, 2) }}</td>
-                </tr>
-                @endforeach
-                
-                <tr>
-                    <td colspan="2" align="right">Subtotal:</td>
-                    <td>${{ $subtotal }}</td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="right">Tax:</td>
-                    <td>${{ $tax }}</td>
-                </tr>
-                @if($deliveryFee > 0)
-                <tr>
-                    <td colspan="2" align="right">Delivery Fee:</td>
-                    <td>${{ $deliveryFee }}</td>
-                </tr>
+@extends('emails.layout')
+
+@section('title', 'Order confirmation · #' . $orderNumber)
+@section('preheader', 'Your order is in — #' . $orderNumber . '. We\'ll have it ready shortly.')
+@section('eyebrow', 'Order received')
+@section('heading', 'Thank you, ' . $customerName . '.')
+@section('subheading', 'Your order is in our hands. Here\'s everything on the ticket.')
+
+@section('content')
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; width:40%;">Order</td><td style="padding:6px 0; font-family:'Helvetica Neue',Arial,sans-serif; font-weight:600; letter-spacing:0.02em;">#{{ $orderNumber }}</td></tr>
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Type</td><td style="padding:6px 0;">{{ ucfirst($orderType) }}</td></tr>
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Status</td><td style="padding:6px 0;"><span style="display:inline-block; padding:4px 12px; background:#FAF0E1; color:#B8860B; border-radius:999px; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; font-weight:600;">{{ ucfirst($orderStatus) }}</span></td></tr>
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Payment</td><td style="padding:6px 0;">{{ ucfirst(str_replace('_', ' ', $paymentMethod)) }} · {{ ucfirst($paymentStatus) }}</td></tr>
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">{{ strtolower($orderType) === 'delivery' ? 'Delivery' : 'Pickup' }}</td><td style="padding:6px 0;">{{ $pickupTime ? $pickupTime->format('F j, g:i A') : 'As soon as possible' }}</td></tr>
+    </table>
+
+    <hr style="border:0; border-top:1px solid #E9E4DA; margin:0 0 20px 0;">
+
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#B8860B; font-weight:600; margin-bottom:14px;">The order</div>
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        @foreach($items as $item)
+        <tr>
+            <td style="padding:12px 0; border-bottom:1px solid #F0EBDF; vertical-align:top;">
+                <div style="font-family:Georgia,serif; font-size:17px; color:#0E0E0E;">{{ $item->menuItem->name ?? 'Item' }}</div>
+                @if($item->special_instructions)
+                    <div style="margin-top:4px; font-size:12px; color:#888; font-style:italic;">“{{ $item->special_instructions }}”</div>
                 @endif
-                <tr class="total-row">
-                    <td colspan="2" align="right">Total:</td>
-                    <td>${{ $total }}</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <p>If you have any questions about your order, please contact us at {{ $restaurantPhone }}.</p>
-        
-        <p>
-            <a href="{{ route('orders.show', $order->id) }}" class="btn">View Order Details</a>
-        </p>
-        
-        <div class="footer">
-            <p>The District Tapas Bar & Restaurant<br>
-            {{ $restaurantAddress }}<br>
-            {{ $restaurantPhone }}</p>
-            <p>&copy; {{ date('Y') }} The District Tapas Bar. All rights reserved.</p>
-        </div>
+                @if($item->addOns->count() > 0)
+                    <div style="margin-top:4px; font-size:12px; color:#888;">+ {{ $item->addOns->pluck('name')->join(', ') }}</div>
+                @endif
+            </td>
+            <td style="padding:12px 0; border-bottom:1px solid #F0EBDF; text-align:right; vertical-align:top; white-space:nowrap;">
+                <div style="font-size:13px; color:#777;">× {{ $item->quantity }}</div>
+                <div style="margin-top:4px; font-family:'Helvetica Neue',Arial,sans-serif; font-weight:600;">${{ number_format($item->subtotal, 2) }}</div>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:18px;">
+        <tr><td style="padding:4px 0; color:#555;">Subtotal</td><td style="padding:4px 0; text-align:right;">${{ $subtotal }}</td></tr>
+        <tr><td style="padding:4px 0; color:#555;">Tax</td><td style="padding:4px 0; text-align:right;">${{ $tax }}</td></tr>
+        @if($deliveryFee > 0)
+        <tr><td style="padding:4px 0; color:#555;">Delivery</td><td style="padding:4px 0; text-align:right;">${{ $deliveryFee }}</td></tr>
+        @endif
+        <tr><td style="padding:14px 0 4px 0; border-top:1px solid #0E0E0E; font-family:Georgia,serif; font-size:18px; color:#0E0E0E;">Total</td><td style="padding:14px 0 4px 0; border-top:1px solid #0E0E0E; text-align:right; font-family:Georgia,serif; font-size:18px; color:#0E0E0E; font-weight:600;">${{ $total }}</td></tr>
+    </table>
+
+    <div style="text-align:center; margin:36px 0 12px 0;">
+        <a href="{{ route('orders.show', $order->id) }}" style="display:inline-block; background:#B8381F; color:#FFFFFF; text-decoration:none; padding:14px 32px; border-radius:999px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; font-weight:600;">View order</a>
     </div>
-</body>
-</html> 
+
+    <p style="margin-top:28px; font-size:13px; color:#777; text-align:center;">Questions? Call us at {{ $restaurantPhone }}.</p>
+@endsection

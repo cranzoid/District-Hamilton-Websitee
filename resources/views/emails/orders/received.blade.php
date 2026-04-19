@@ -1,171 +1,69 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>New Order Received</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #4F46E5;
-            padding-bottom: 15px;
-        }
-        .logo {
-            max-width: 150px;
-            height: auto;
-        }
-        h1 {
-            color: #4F46E5;
-            margin-top: 0;
-        }
-        h2 {
-            color: #4F46E5;
-            margin-top: 20px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        .order-info {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .customer-info {
-            background-color: #f0f0f0;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-        }
-        th {
-            background-color: #f5f5f5;
-        }
-        .total-row {
-            font-weight: bold;
-        }
-        .btn {
-            display: inline-block;
-            background-color: #4F46E5;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <img src="{{ asset('images/logo.png') }}" alt="The District Tapas Bar Logo" class="logo">
-            <h1>New Order Received</h1>
-        </div>
-        
-        <p>A new order has been received from {{ $customerName }}.</p>
-        
-        <div class="customer-info">
-            <h2>Customer Information</h2>
-            <p><strong>Name:</strong> {{ $customerName }}</p>
-            <p><strong>Email:</strong> {{ $customerEmail }}</p>
-            <p><strong>Phone:</strong> {{ $customerPhone }}</p>
-            @if($orderType === 'delivery' && $deliveryAddress)
-            <p><strong>Address:</strong> {{ $deliveryAddress }}</p>
-            @endif
-        </div>
-        
-        <div class="order-info">
-            <h2>Order Details</h2>
-            <p><strong>Order Number:</strong> {{ $orderNumber }}</p>
-            <p><strong>Order Type:</strong> {{ ucfirst($orderType) }}</p>
-            <p><strong>Order Status:</strong> {{ ucfirst($orderStatus) }}</p>
-            <p><strong>Payment Method:</strong> {{ ucfirst(str_replace('_', ' ', $paymentMethod)) }}</p>
-            <p><strong>Payment Status:</strong> {{ ucfirst($paymentStatus) }}</p>
-            
-            @if($pickupTime)
-            <p><strong>Pickup/Delivery Time:</strong> {{ $pickupTime->format('F j, Y, g:i a') }}</p>
-            @else
-            <p><strong>Pickup/Delivery Time:</strong> As soon as possible</p>
-            @endif
-            
-            @if($notes)
-            <p><strong>Special Instructions:</strong> {{ $notes }}</p>
-            @endif
-        </div>
-        
-        <h2>Order Items</h2>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($items as $item)
-                <tr>
-                    <td>
-                        {{ $item->menuItem->name ?? 'Unknown Item' }}
-                        @if($item->special_instructions)
-                        <br><small><em>Instructions: {{ $item->special_instructions }}</em></small>
-                        @endif
-                        @if($item->addOns->count() > 0)
-                        <br><small>Add-ons: {{ $item->addOns->pluck('name')->join(', ') }}</small>
-                        @endif
-                    </td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>${{ number_format($item->subtotal, 2) }}</td>
-                </tr>
-                @endforeach
-                
-                <tr>
-                    <td colspan="2" align="right">Subtotal:</td>
-                    <td>${{ $subtotal }}</td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="right">Tax:</td>
-                    <td>${{ $tax }}</td>
-                </tr>
-                @if($deliveryFee > 0)
-                <tr>
-                    <td colspan="2" align="right">Delivery Fee:</td>
-                    <td>${{ $deliveryFee }}</td>
-                </tr>
+@extends('emails.layout')
+
+@section('title', 'New order · #' . $orderNumber)
+@section('preheader', 'New order from ' . $customerName . ' — #' . $orderNumber)
+@section('eyebrow', 'Kitchen · New ticket')
+@section('heading', 'New order on the pass.')
+@section('subheading', 'A fresh ticket just landed. Details below.')
+
+@section('content')
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#B8860B; font-weight:600; margin-bottom:10px;">Customer</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; width:35%;">Name</td><td style="padding:5px 0; color:#0E0E0E; font-weight:600;">{{ $customerName }}</td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Email</td><td style="padding:5px 0;"><a href="mailto:{{ $customerEmail }}" style="color:#B8381F;">{{ $customerEmail }}</a></td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Phone</td><td style="padding:5px 0;"><a href="tel:{{ $customerPhone }}" style="color:#0E0E0E; text-decoration:none; border-bottom:1px dotted #999;">{{ $customerPhone }}</a></td></tr>
+        @if($orderType === 'delivery' && $deliveryAddress)
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Address</td><td style="padding:5px 0;">{{ $deliveryAddress }}</td></tr>
+        @endif
+    </table>
+
+    <hr style="border:0; border-top:1px solid #E9E4DA; margin:24px 0;">
+
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#B8860B; font-weight:600; margin-bottom:10px;">Order</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; width:35%;">Number</td><td style="padding:5px 0; font-weight:600;">#{{ $orderNumber }}</td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Type</td><td style="padding:5px 0;">{{ ucfirst($orderType) }}</td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Status</td><td style="padding:5px 0;">{{ ucfirst($orderStatus) }}</td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Payment</td><td style="padding:5px 0;">{{ ucfirst(str_replace('_', ' ', $paymentMethod)) }} · {{ ucfirst($paymentStatus) }}</td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Timing</td><td style="padding:5px 0;">{{ $pickupTime ? $pickupTime->format('F j, g:i A') : 'ASAP' }}</td></tr>
+        @if($notes)
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Notes</td><td style="padding:5px 0; font-style:italic; color:#B8381F;">{{ $notes }}</td></tr>
+        @endif
+    </table>
+
+    <hr style="border:0; border-top:1px solid #E9E4DA; margin:24px 0;">
+
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#B8860B; font-weight:600; margin-bottom:14px;">Items</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        @foreach($items as $item)
+        <tr>
+            <td style="padding:12px 0; border-bottom:1px solid #F0EBDF; vertical-align:top;">
+                <div style="font-family:Georgia,serif; font-size:17px; color:#0E0E0E;">{{ $item->menuItem->name ?? 'Item' }}</div>
+                @if($item->special_instructions)
+                    <div style="margin-top:4px; font-size:12px; color:#B8381F; font-style:italic;">“{{ $item->special_instructions }}”</div>
                 @endif
-                <tr class="total-row">
-                    <td colspan="2" align="right">Total:</td>
-                    <td>${{ $total }}</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <p>
-            <a href="{{ $orderUrl }}" class="btn">Manage Order</a>
-        </p>
+                @if($item->addOns->count() > 0)
+                    <div style="margin-top:4px; font-size:12px; color:#888;">+ {{ $item->addOns->pluck('name')->join(', ') }}</div>
+                @endif
+            </td>
+            <td style="padding:12px 0; border-bottom:1px solid #F0EBDF; text-align:right; vertical-align:top; white-space:nowrap;">
+                <div style="font-size:13px; color:#777;">× {{ $item->quantity }}</div>
+                <div style="margin-top:4px; font-weight:600;">${{ number_format($item->subtotal, 2) }}</div>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:18px;">
+        <tr><td style="padding:4px 0; color:#555;">Subtotal</td><td style="padding:4px 0; text-align:right;">${{ $subtotal }}</td></tr>
+        <tr><td style="padding:4px 0; color:#555;">Tax</td><td style="padding:4px 0; text-align:right;">${{ $tax }}</td></tr>
+        @if($deliveryFee > 0)
+        <tr><td style="padding:4px 0; color:#555;">Delivery</td><td style="padding:4px 0; text-align:right;">${{ $deliveryFee }}</td></tr>
+        @endif
+        <tr><td style="padding:14px 0 4px 0; border-top:1px solid #0E0E0E; font-family:Georgia,serif; font-size:18px;">Total</td><td style="padding:14px 0 4px 0; border-top:1px solid #0E0E0E; text-align:right; font-family:Georgia,serif; font-size:18px; font-weight:600;">${{ $total }}</td></tr>
+    </table>
+
+    <div style="text-align:center; margin:36px 0 0 0;">
+        <a href="{{ $orderUrl }}" style="display:inline-block; background:#0E0E0E; color:#FFFFFF; text-decoration:none; padding:14px 32px; border-radius:999px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; font-weight:600;">Manage order</a>
     </div>
-</body>
-</html> 
+@endsection

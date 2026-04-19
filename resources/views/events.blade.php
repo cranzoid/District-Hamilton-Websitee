@@ -1,310 +1,233 @@
 @extends('layouts.app')
 
-@section('title', 'Private Events')
+@section('title', 'Private events + buyouts')
+@section('description', 'Host your next event at The District Tapas + Bar — private dining, standing receptions, and midday gatherings in downtown Hamilton.')
 
 @section('content')
-    <!-- Hero Section for Events -->
-    <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
-        <div class="hero-content">
-            <h1>Private Events</h1>
-            <p>Make your special occasion even more memorable with our customizable event spaces and exceptional service.</p>
+    <section class="subhero">
+        <div class="container-ed">
+            <p class="eyebrow">Private events</p>
+            <h1 class="font-display text-6xl md:text-8xl font-light leading-[1.02] mt-3">
+                A room <em class="italic text-brand">built</em> for the occasion.
+            </h1>
+            <p class="lede mt-8 max-w-2xl">
+                From 20-person seated dinners to full-room receptions of 65, we'll build the evening around your group — custom menus, staffed bar, and a space designed for lingering.
+            </p>
+            <a href="#event-inquiry" class="btn btn-ember btn-lg mt-10">Start an inquiry</a>
         </div>
-    </div>
+    </section>
 
-    <!-- Events Introduction -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="section-title mx-auto">Host Your Next Event With Us</h2>
-                <p class="text-gray-600 mt-8 text-lg leading-relaxed">
-                    Our space is well-suited for a variety of gatherings. From private dinners to networking events to large group parties, our dining room can be arranged to accommodate your special day. Our experienced team will work with you to create a customized menu and atmosphere that perfectly matches your vision.
-                </p>
-            </div>
+    {{-- EVENT TYPES --}}
+    <section class="section-pad">
+        <div class="container-ed space-y-20">
+            @foreach([
+                [
+                    'num' => '01',
+                    'kind' => 'Standing reception',
+                    'title' => 'Cocktails at the bar',
+                    'body' => "The bar at The District is the ideal gathering point for standing receptions. Premium finishes and warm ambiance — perfect for socializing and networking over tapas and cocktails.",
+                    'cap' => 'Up to 65 guests',
+                    'img' => '/images/Restaurant_food/int-4.jpg',
+                    'flip' => false,
+                ],
+                [
+                    'num' => '02',
+                    'kind' => 'Seated private dining',
+                    'title' => 'Family-style, multi-course',
+                    'body' => "Our team will customize a private dining experience for you and your guests. Seated dinners are served family-style with multiple share-plate courses — a communal, intimate way to experience our menu.",
+                    'cap' => 'Up to 25 seated',
+                    'img' => '/images/Restaurant_food/int-3.jpg',
+                    'flip' => true,
+                ],
+                [
+                    'num' => '03',
+                    'kind' => 'Midday reception',
+                    'title' => 'Daytime buyouts',
+                    'body' => "Available between 2:30pm – 4:30pm. Executive meetings, team-building events, customer appreciation receptions — our bright space and tailored service make the perfect daytime backdrop.",
+                    'cap' => 'Up to 25 standing · 20 seated',
+                    'img' => '/images/Restaurant_food/food-4.jpg',
+                    'flip' => false,
+                ],
+            ] as $event)
+                <article class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <div class="{{ $event['flip'] ? 'md:order-2' : '' }}">
+                        <img src="{{ $event['img'] }}" alt="{{ $event['title'] }}" class="w-full h-[460px] object-cover rounded-2xl shadow-lg">
+                    </div>
+                    <div>
+                        <p class="numeral text-5xl text-brand">{{ $event['num'] }}</p>
+                        <p class="eyebrow mt-4">{{ $event['kind'] }}</p>
+                        <h2 class="font-display text-4xl md:text-5xl font-light italic mt-3 leading-tight">{{ $event['title'] }}</h2>
+                        <p class="mt-5 text-ink-muted leading-relaxed">{{ $event['body'] }}</p>
+                        <p class="mt-6 inline-flex items-center gap-2 chip chip--dark">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            {{ $event['cap'] }}
+                        </p>
+                    </div>
+                </article>
+            @endforeach
         </div>
     </section>
-    
-    <!-- Event Types Section -->
-    <section class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-                <div class="order-2 lg:order-1">
-                    <div class="bg-white p-6 sm:p-10 rounded-lg shadow-lg border-t-4 border-primary">
-                        <h3 class="text-3xl font-display font-bold mb-6 text-gray-900">Standing Reception</h3>
-                        <div class="w-16 h-1 bg-primary mb-6"></div>
-                        <p class="text-gray-600 mb-6 leading-relaxed">
-                            The bar at The District is the ideal gathering point for standing receptions. Our beautifully crafted bar features premium finishes and provides an elegant backdrop for your event. The warm ambiance is perfect for socializing and networking while enjoying our exquisite tapas and cocktails.
-                        </p>
-                        <div class="flex items-center mt-8">
-                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mr-4">
-                                <i class="fas fa-users text-xl text-primary"></i>
-                            </div>
-                            <p class="text-gray-900 font-semibold">Capacity: Up to 65 Guests</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="order-1 lg:order-2">
-                    <div class="aspect-w-16 aspect-h-9 rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Standing Reception" class="w-full h-full object-cover">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-                <div>
-                    <div class="aspect-w-16 aspect-h-9 rounded-lg shadow-lg overflow-hidden">
-                        <img src="/images/Restaurant_food/int-3.jpg" alt="Seated Private Dining Reception" class="w-full h-full object-cover">
-                    </div>
-                </div>
-                <div>
-                    <div class="bg-white p-6 sm:p-10 rounded-lg shadow-lg border-t-4 border-primary">
-                        <h3 class="text-3xl font-display font-bold mb-6 text-gray-900">Seated Private Dining Reception</h3>
-                        <div class="w-16 h-1 bg-primary mb-6"></div>
-                        <p class="text-gray-600 mb-6 leading-relaxed">
-                            Our team will help customize a private dining experience just for you and your guests. Seated dinners are served family-style with multiple share plate courses so that guests may enjoy a number of different flavors and tastes throughout their meal. Our Spanish tapas concept is perfect for creating a communal and intimate dining experience.
-                        </p>
-                        <div class="flex items-center mt-8">
-                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mr-4">
-                                <i class="fas fa-chair text-xl text-primary"></i>
-                            </div>
-                            <p class="text-gray-900 font-semibold">Seated Dining Capacity: Up to 25 Guests</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="order-2 lg:order-1">
-                    <div class="bg-white p-6 sm:p-10 rounded-lg shadow-lg border-t-4 border-primary">
-                        <h3 class="text-3xl font-display font-bold mb-6 text-gray-900">Midday Reception</h3>
-                        <div class="w-16 h-1 bg-primary mb-6"></div>
-                        <p class="text-gray-600 mb-6 leading-relaxed">
-                            The District is happy to offer our event space for mid-day receptions between the hours of 2:30pm - 4:30pm. Whether you need a private space to host an executive meeting, a team building event, or a customer appreciation reception, we are happy to take care of every detail. Our bright space and tailored service create the perfect backdrop for your daytime event.
-                        </p>
-                        <div class="flex items-center mt-4">
-                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mr-4">
-                                <i class="fas fa-users text-xl text-primary"></i>
-                            </div>
-                            <p class="text-gray-900 font-semibold">Standing Capacity: Up to 25 Guests</p>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mr-4">
-                                <i class="fas fa-chair text-xl text-primary"></i>
-                            </div>
-                            <p class="text-gray-900 font-semibold">Seated Dining Capacity: Up to 20 Guests</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="order-1 lg:order-2">
-                    <div class="aspect-w-16 aspect-h-9 rounded-lg shadow-lg overflow-hidden">
-                        <img src='/images/Restaurant_food/food-4.jpg' alt="Midday Reception" class="w-full h-full object-cover">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Gallery Section -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
+
+    {{-- GALLERY --}}
+    <section class="section-pad bg-paper-warm">
+        <div class="container-ed">
             <div class="text-center mb-12">
-                <h2 class="section-title mx-auto">Our Event Spaces</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Take a glimpse at our elegant event spaces that can be tailored to your specific needs.</p>
+                <p class="eyebrow">The space</p>
+                <h2 class="font-display text-4xl md:text-5xl font-light mt-3">Take a look</h2>
             </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="aspect-square overflow-hidden rounded-lg shadow-md">
-                <img src='/images/Restaurant_food/int-5.jpg' alt="Event space" class="w-full h-full object-cover object-bottom hover:scale-110 transition-transform duration-500">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                @foreach(['int-5.jpg', 'int-6.jpg', 'int-7.jpg', 'int-4.jpg'] as $img)
+                    <div class="aspect-square overflow-hidden rounded-xl">
+                        <img src="/images/Restaurant_food/{{ $img }}" alt="" class="w-full h-full object-cover hover:scale-105 transition duration-700" loading="lazy">
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    {{-- INQUIRY FORM --}}
+    <section id="event-inquiry" class="section-pad">
+        <div class="container-ed">
+            <div class="grid lg:grid-cols-[1fr_1.3fr] gap-12 bg-ink text-paper rounded-2xl overflow-hidden">
+                <div class="p-10 md:p-14 bg-ink-soft">
+                    <p class="eyebrow text-brand-light">Inquiry</p>
+                    <h2 class="font-display text-4xl md:text-5xl font-light mt-3 leading-tight">Let us help you plan</h2>
+                    <p class="mt-6 text-paper/70 leading-relaxed">
+                        Fill in the form and we'll use it as a starting point. Final details — date, menu, timing — we'll work out together.
+                    </p>
+
+                    <ul class="mt-10 space-y-6">
+                        @foreach([
+                            ['Customized menus', 'Our chef will craft a menu around your preferences and any dietary needs.'],
+                            ['Bar packages', 'Premium open bars or curated cocktail menus — options for every event and budget.'],
+                            ['Dedicated service', 'Our professional staff will ensure your event runs smoothly start to finish.'],
+                        ] as $perk)
+                            <li class="flex gap-4">
+                                <div class="w-10 h-10 rounded-full bg-brand-light/15 text-brand-light flex items-center justify-center shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-display text-xl">{{ $perk[0] }}</h3>
+                                    <p class="text-sm text-paper/60 mt-1 leading-relaxed">{{ $perk[1] }}</p>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
-                <div class="aspect-square overflow-hidden rounded-lg shadow-md">
-                    <img src='/images/Restaurant_food/int-6.jpg' alt="Event setup" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="aspect-square overflow-hidden rounded-lg shadow-md">
-                    <img src='/images/Restaurant_food/int-7.jpg' alt="Private dining" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="aspect-square overflow-hidden rounded-lg shadow-md">
-                    <img src="/images/Restaurant_food/int-4.jpg" alt="Bar area" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+
+                <div class="p-10 md:p-14 bg-paper text-ink">
+                    <h3 class="font-display text-2xl mb-8">Event inquiry form</h3>
+
+                    <form id="eventForm" action="{{ route('events.inquiry') }}" method="POST" class="space-y-5">
+                        @csrf
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="first_name" class="label">First name <span class="label-req">*</span></label>
+                                <input type="text" id="first_name" name="first_name" required value="{{ old('first_name') }}" class="field @error('first_name') field--error @enderror">
+                                @error('first_name') <p class="field-error">{{ $message }}</p> @enderror
+                            </div>
+                            <div>
+                                <label for="last_name" class="label">Last name <span class="label-req">*</span></label>
+                                <input type="text" id="last_name" name="last_name" required value="{{ old('last_name') }}" class="field @error('last_name') field--error @enderror">
+                                @error('last_name') <p class="field-error">{{ $message }}</p> @enderror
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="email" class="label">Email <span class="label-req">*</span></label>
+                                <input type="email" id="email" name="email" required value="{{ old('email') }}" class="field @error('email') field--error @enderror">
+                                @error('email') <p class="field-error">{{ $message }}</p> @enderror
+                            </div>
+                            <div>
+                                <label for="phone" class="label">Phone <span class="label-req">*</span></label>
+                                <input type="tel" id="phone" name="phone" required value="{{ old('phone') }}" class="field @error('phone') field--error @enderror">
+                                @error('phone') <p class="field-error">{{ $message }}</p> @enderror
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="company" class="label">Company</label>
+                            <input type="text" id="company" name="company" value="{{ old('company') }}" class="field">
+                        </div>
+
+                        <div>
+                            <label for="event_type" class="label">Type of event <span class="label-req">*</span></label>
+                            <input type="text" id="event_type" name="event_type" placeholder="Birthday, corporate, wedding reception…" required value="{{ old('event_type') }}" class="field @error('event_type') field--error @enderror">
+                            @error('event_type') <p class="field-error">{{ $message }}</p> @enderror
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                            <div>
+                                <label for="guest_count" class="label">Guests <span class="label-req">*</span></label>
+                                <input type="number" id="guest_count" name="guest_count" placeholder="1 – 65" min="1" max="65" required value="{{ old('guest_count') }}" class="field @error('guest_count') field--error @enderror">
+                                @error('guest_count') <p class="field-error">{{ $message }}</p> @enderror
+                            </div>
+                            <div>
+                                <label for="event_date" class="label">Date <span class="label-req">*</span></label>
+                                <input type="date" id="event_date" name="event_date" required value="{{ old('event_date') }}" class="field @error('event_date') field--error @enderror">
+                                @error('event_date') <p class="field-error">{{ $message }}</p> @enderror
+                            </div>
+                            <div>
+                                <label for="event_time" class="label">Time <span class="label-req">*</span></label>
+                                <input type="text" id="event_time" name="event_time" placeholder="6pm – 10pm" required value="{{ old('event_time') }}" class="field @error('event_time') field--error @enderror">
+                                @error('event_time') <p class="field-error">{{ $message }}</p> @enderror
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="details" class="label">Additional details</label>
+                            <textarea id="details" name="details" rows="4" placeholder="Dietary needs, themes, timing — anything to help us plan." class="field">{{ old('details') }}</textarea>
+                        </div>
+
+                        <input type="hidden" name="admin_email" value="thedistricthamilton@gmail.com">
+
+                        <button type="submit" class="btn btn-ember btn-lg btn-block">
+                            Submit inquiry
+                        </button>
+
+                        <div id="eventFormResponse" class="hidden alert" role="status"></div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- Inquiry Form Section -->
-    <section class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <div class="max-w-5xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-                <div class="grid grid-cols-1 lg:grid-cols-2">
-                    <div class="p-8 sm:p-12 bg-primary bg-opacity-10">
-                        <h2 class="text-3xl font-display font-bold mb-6 text-gray-900">Let Us Help You</h2>
-                        <p class="text-gray-700 mb-8">
-                            Fill in the form to help us better serve you. This will give us a starting point to help craft the best experience we can. Final details for dates, times, number of people, etc. will be worked out together.
-                        </p>
-                        
-                        <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mr-4">
-                                    <i class="fas fa-utensils text-xl text-primary"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-display font-bold text-gray-900 mb-2">Customized Menus</h3>
-                                    <p class="text-gray-600">Our chef will work with you to create a personalized menu based on your preferences and dietary needs.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start">
-                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mr-4">
-                                    <i class="fas fa-glass-cheers text-xl text-primary"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-display font-bold text-gray-900 mb-2">Bar Packages</h3>
-                                    <p class="text-gray-600">From premium open bars to specialized cocktail menus, we have options to suit every event and budget.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start">
-                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mr-4">
-                                    <i class="fas fa-concierge-bell text-xl text-primary"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-display font-bold text-gray-900 mb-2">Dedicated Service</h3>
-                                    <p class="text-gray-600">Our professional staff will ensure your event runs smoothly from start to finish.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="p-8 sm:p-12">
-                        <h3 class="text-2xl font-display font-bold mb-6 text-gray-900">Event Inquiry Form</h3>
-                        
-                        <form id="eventForm" action="{{ route('events.inquiry') }}" method="POST" class="space-y-6">
-                            @csrf
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
-                                    <input type="text" id="first_name" name="first_name" required 
-                                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/20 focus:ring-opacity-50 transition">
-                                </div>
-                                <div>
-                                    <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
-                                    <input type="text" id="last_name" name="last_name" required 
-                                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/20 focus:ring-opacity-50 transition">
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-                                <input type="email" id="email" name="email" required 
-                                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/20 focus:ring-opacity-50 transition">
-                            </div>
-                            
-                            <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
-                                <input type="tel" id="phone" name="phone" required 
-                                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/20 focus:ring-opacity-50 transition">
-                            </div>
-                            
-                            <div>
-                                <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Company</label>
-                                <input type="text" id="company" name="company" 
-                                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/20 focus:ring-opacity-50 transition">
-                            </div>
-                            
-                            <div>
-                                <label for="event_type" class="block text-sm font-medium text-gray-700 mb-1">Nature of the event *</label>
-                                <input type="text" id="event_type" name="event_type" placeholder="Birthday, Office Gathering, Wedding, etc." required 
-                                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/20 focus:ring-opacity-50 transition">
-                            </div>
-                            
-                            <div>
-                                <label for="guest_count" class="block text-sm font-medium text-gray-700 mb-1">Number of People *</label>
-                                <input type="number" id="guest_count" name="guest_count" placeholder="Approx. (up to 65)" min="1" max="65" required 
-                                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/20 focus:ring-opacity-50 transition">
-                            </div>
-                            
-                            <div>
-                                <label for="event_date" class="block text-sm font-medium text-gray-700 mb-1">Date *</label>
-                                <input type="date" id="event_date" name="event_date" required 
-                                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/20 focus:ring-opacity-50 transition">
-                            </div>
-                            
-                            <div>
-                                <label for="event_time" class="block text-sm font-medium text-gray-700 mb-1">Time *</label>
-                                <input type="text" id="event_time" name="event_time" placeholder="Start - End" required 
-                                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/20 focus:ring-opacity-50 transition">
-                            </div>
-                            
-                            <div>
-                                <label for="details" class="block text-sm font-medium text-gray-700 mb-1">Additional Details</label>
-                                <textarea id="details" name="details" rows="4" placeholder="Let us know if you have something special in mind so we can help curate the best experience for you." 
-                                          class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/20 focus:ring-opacity-50 transition"></textarea>
-                            </div>
-                            
-                            <input type="hidden" name="admin_email" value="admin@thedistricttapas.com">
-                            
-                            <div>
-                                <button type="submit" class="btn-primary w-full">
-                                    Submit Inquiry <i class="fas fa-paper-plane ml-2"></i>
-                                </button>
-                            </div>
-                        </form>
-                        
-                        <div id="eventFormResponse" class="mt-4 hidden">
-                            <div class="p-4 rounded-md">
-                                <p class="text-center"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Testimonials -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
+
+    {{-- TESTIMONIALS --}}
+    <section class="section-pad bg-paper-deep">
+        <div class="container-ed">
             <div class="text-center mb-12">
-                <h2 class="section-title mx-auto">What Our Event Hosts Say</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Read about the experiences of those who have hosted events with us.</p>
+                <p class="eyebrow">Hosts</p>
+                <h2 class="font-display text-4xl md:text-5xl font-light mt-3">What our hosts say</h2>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-8 rounded-lg shadow relative">
-                    <div class="absolute top-0 right-0 w-12 h-12 bg-primary/10 flex items-center justify-center rounded-bl-lg">
-                        <i class="fas fa-quote-right text-primary"></i>
-                    </div>
-                    <p class="text-gray-700 mb-8 italic">"We hosted our company's annual dinner at The District and it was exceptional. The staff was attentive, the food was amazing, and everyone had a wonderful time. They took care of every detail!"</p>
-                    <div class="font-bold text-gray-900">— Christina L.</div>
-                    <div class="text-sm text-gray-500">Corporate Event</div>
-                </div>
-                
-                <div class="bg-gray-50 p-8 rounded-lg shadow relative">
-                    <div class="absolute top-0 right-0 w-12 h-12 bg-primary/10 flex items-center justify-center rounded-bl-lg">
-                        <i class="fas fa-quote-right text-primary"></i>
-                    </div>
-                    <p class="text-gray-700 mb-8 italic">"I celebrated my 40th birthday here with 25 friends. The tapas-style menu was perfect for the occasion, allowing everyone to try different dishes. The atmosphere was exactly what I wanted - upscale but comfortable."</p>
-                    <div class="font-bold text-gray-900">— James R.</div>
-                    <div class="text-sm text-gray-500">Birthday Celebration</div>
-                </div>
-                
-                <div class="bg-gray-50 p-8 rounded-lg shadow relative">
-                    <div class="absolute top-0 right-0 w-12 h-12 bg-primary/10 flex items-center justify-center rounded-bl-lg">
-                        <i class="fas fa-quote-right text-primary"></i>
-                    </div>
-                    <p class="text-gray-700 mb-8 italic">"We had our engagement party at The District and couldn't have been happier. They helped us create a custom menu that honored both of our cultural backgrounds. The space looked absolutely beautiful."</p>
-                    <div class="font-bold text-gray-900">— Sophia & Daniel</div>
-                    <div class="text-sm text-gray-500">Engagement Party</div>
-                </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                @foreach([
+                    ['"We hosted our company\'s annual dinner at The District and it was exceptional. The staff was attentive, the food was amazing — they took care of every detail."', 'Christina L.', 'Corporate dinner'],
+                    ['"I celebrated my 40th with 25 friends. The tapas-style menu was perfect — everyone got to try different dishes. The atmosphere was exactly what I wanted."', 'James R.', 'Birthday celebration'],
+                    ['"We had our engagement party at The District and couldn\'t have been happier. They helped us create a custom menu that honored both our backgrounds."', 'Sophia & Daniel', 'Engagement party'],
+                ] as $t)
+                    <figure class="bg-paper border border-line rounded-xl p-8 flex flex-col">
+                        <svg class="w-7 h-7 text-brand mb-3" fill="currentColor" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+                        <blockquote class="font-display italic text-lg leading-snug flex-grow">{{ $t[0] }}</blockquote>
+                        <figcaption class="mt-6 pt-4 border-t border-line-soft" style="border-color: rgba(14,14,14,0.06);">
+                            <p class="font-semibold">— {{ $t[1] }}</p>
+                            <p class="eyebrow mt-1">{{ $t[2] }}</p>
+                        </figcaption>
+                    </figure>
+                @endforeach
             </div>
         </div>
     </section>
-    
-    <!-- Call to Action -->
-    <section class="py-16 bg-dark text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-display font-bold mb-6 text-black">Ready to Plan Your Event?</h2>
-            <p class="text-xl mb-8 max-w-3xl mx-auto text-black">Contact us today to start planning your next memorable gathering at The District Tapas + Bar.</p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="#" class="order-now" style="align-items: center;">Fill Out the Inquiry Form</a>
-                <a href="tel:+15551234567" class="btn-secondary">Call Us Directly</a>
+
+    {{-- CTA --}}
+    <section class="section-pad bg-ink text-paper">
+        <div class="container-ed--narrow text-center">
+            <p class="eyebrow text-brand-light">Get in touch</p>
+            <h2 class="font-display text-5xl md:text-6xl font-light mt-4 leading-tight">Ready to plan?</h2>
+            <div class="mt-10 flex flex-wrap gap-4 justify-center">
+                <a href="#event-inquiry" class="btn btn-ember btn-lg">Inquiry form</a>
+                <a href="tel:+19055222580" class="btn btn-outline-paper btn-lg">Call (905) 522-2580</a>
             </div>
         </div>
     </section>
@@ -312,53 +235,38 @@
 
 @push('scripts')
 <script>
-    document.getElementById('eventForm').addEventListener('submit', function(e) {
+    document.getElementById('eventForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        
         const form = this;
         const submitButton = form.querySelector('button[type="submit"]');
         const responseDiv = document.getElementById('eventFormResponse');
-        const responseParagraph = responseDiv.querySelector('p');
-        
-        // Disable submit button and show loading state
+        const originalLabel = submitButton.innerHTML;
         submitButton.disabled = true;
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
-        
-        // Send form data via AJAX
+        submitButton.textContent = 'Sending…';
+
         fetch(form.action, {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-            },
+            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
             body: new FormData(form)
         })
-        .then(response => response.json())
+        .then(r => r.json())
         .then(data => {
-            // Show success message
-            responseDiv.classList.remove('hidden');
-            responseDiv.classList.add('bg-green-50');
-            responseParagraph.classList.add('text-green-800');
-            responseParagraph.textContent = data.message;
-            
-            // Reset form
+            responseDiv.classList.remove('hidden', 'alert-error');
+            responseDiv.classList.add('alert-success');
+            responseDiv.innerHTML = '<span>' + (data.message || 'Thanks — we\'ll be in touch shortly.') + '</span>';
             form.reset();
+            if (window.Alpine?.store('ui')) window.Alpine.store('ui').flash('Inquiry sent');
         })
-        .catch(error => {
-            // Show error message
-            responseDiv.classList.remove('hidden');
-            responseDiv.classList.add('bg-red-50');
-            responseParagraph.classList.add('text-red-800');
-            responseParagraph.textContent = 'Sorry, there was an error sending your inquiry. Please try again.';
+        .catch(() => {
+            responseDiv.classList.remove('hidden', 'alert-success');
+            responseDiv.classList.add('alert-error');
+            responseDiv.innerHTML = '<span>Sorry — something went wrong. Please try again or call us.</span>';
         })
         .finally(() => {
-            // Re-enable submit button
             submitButton.disabled = false;
-            submitButton.innerHTML = 'Submit Inquiry <i class="fas fa-paper-plane ml-2"></i>';
-            
-            // Scroll response into view
+            submitButton.innerHTML = originalLabel;
             responseDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     });
 </script>
-@endpush 
+@endpush

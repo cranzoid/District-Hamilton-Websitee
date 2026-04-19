@@ -17,62 +17,64 @@ class GenerateSitemap extends Command
         $this->info('Generating sitemap...');
 
         $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
-        $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
+        $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . PHP_EOL;
 
-        // Static pages
         $staticPages = [
             ['url' => '/', 'priority' => '1.0', 'changefreq' => 'daily'],
             ['url' => '/menu', 'priority' => '0.9', 'changefreq' => 'daily'],
-            ['url' => '/about', 'priority' => '0.8', 'changefreq' => 'monthly'],
-            ['url' => '/contact', 'priority' => '0.8', 'changefreq' => 'monthly'],
-            ['url' => '/events', 'priority' => '0.8', 'changefreq' => 'weekly'],
-            ['url' => '/terms', 'priority' => '0.5', 'changefreq' => 'monthly'],
-            ['url' => '/privacy', 'priority' => '0.5', 'changefreq' => 'monthly'],
+            ['url' => '/daily-offers', 'priority' => '0.8', 'changefreq' => 'daily'],
+            ['url' => '/about', 'priority' => '0.7', 'changefreq' => 'monthly'],
+            ['url' => '/events', 'priority' => '0.7', 'changefreq' => 'weekly'],
+            ['url' => '/contact', 'priority' => '0.7', 'changefreq' => 'monthly'],
+            ['url' => '/gift-cards', 'priority' => '0.6', 'changefreq' => 'monthly'],
+            ['url' => '/terms', 'priority' => '0.3', 'changefreq' => 'yearly'],
+            ['url' => '/privacy', 'priority' => '0.3', 'changefreq' => 'yearly'],
         ];
 
         foreach ($staticPages as $page) {
-            $sitemap .= $this->generateUrlEntry(
-                url($page['url']),
-                $page['changefreq'],
-                $page['priority']
-            );
+            $sitemap .= $this->generateUrlEntry(url($page['url']), $page['changefreq'], $page['priority']);
         }
 
-        // Menu Categories
-        $categories = Category::all();
+        try {
+            $categories = Category::query()
+                ->when(\Schema::hasColumn('categories', 'is_visible'), fn($q) => $q->where('is_visible', true))
+                ->get();
+        } catch (\Throwable $e) {
+            $categories = Category::all();
+        }
+
         foreach ($categories as $category) {
-            $sitemap .= $this->generateUrlEntry(
-                url("/menu/category/{$category->slug}"),
-                'weekly',
-                '0.8'
-            );
+            if (empty($category->slug)) continue;
+            $lastmod = $category->updated_at ?? Carbon::now();
+            $sitemap .= $this->generateUrlEntry(url("/menu/category/{$category->slug}"), 'weekly', '0.7', $lastmod);
         }
 
-        // Menu Items
-        $menuItems = MenuItem::all();
+        $menuItems = MenuItem::query()
+            ->when(\Schema::hasColumn('menu_items', 'is_visible'), fn($q) => $q->where('is_visible', true))
+            ->get();
+
         foreach ($menuItems as $item) {
-            $sitemap .= $this->generateUrlEntry(
-                url("/menu/item/{$item->slug}"),
-                'weekly',
-                '0.7'
-            );
+            if (empty($item->slug)) continue;
+            $lastmod = $item->updated_at ?? Carbon::now();
+            $sitemap .= $this->generateUrlEntry(url("/menu/item/{$item->slug}"), 'weekly', '0.6', $lastmod);
         }
 
         $sitemap .= '</urlset>';
 
-        // Save the sitemap
         file_put_contents(public_path('sitemap.xml'), $sitemap);
 
-        $this->info('Sitemap generated successfully!');
+        $count = count($staticPages) + $categories->count() + $menuItems->count();
+        $this->info("Sitemap generated with {$count} URLs.");
     }
 
-    private function generateUrlEntry($url, $changefreq, $priority)
+    private function generateUrlEntry($url, $changefreq, $priority, $lastmod = null)
     {
+        $lastmod = $lastmod ? Carbon::parse($lastmod)->toAtomString() : Carbon::now()->toAtomString();
         return "    <url>\n" .
-               "        <loc>" . $url . "</loc>\n" .
-               "        <lastmod>" . Carbon::now()->toAtomString() . "</lastmod>\n" .
+               "        <loc>" . htmlspecialchars($url, ENT_XML1) . "</loc>\n" .
+               "        <lastmod>" . $lastmod . "</lastmod>\n" .
                "        <changefreq>" . $changefreq . "</changefreq>\n" .
                "        <priority>" . $priority . "</priority>\n" .
                "    </url>\n";
     }
-} 
+}

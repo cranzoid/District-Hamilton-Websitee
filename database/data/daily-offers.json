@@ -1,0 +1,112 @@
+{
+    "offers": [
+        {
+            "day_of_week": 0,
+            "section": "food",
+            "title": "Beef Spring Rolls",
+            "description": null,
+            "price_display": "$12",
+            "sort_order": 1,
+            "is_active": true
+        },
+        {
+            "day_of_week": 0,
+            "section": "drink",
+            "title": "Caesar",
+            "description": null,
+            "price_display": "$10",
+            "sort_order": 2,
+            "is_active": true
+        },
+        {
+            "day_of_week": 2,
+            "section": "food",
+            "title": "3 for 2 Tapas",
+            "description": null,
+            "price_display": null,
+            "sort_order": 1,
+            "is_active": true
+        },
+        {
+            "day_of_week": 2,
+            "section": "drink",
+            "title": "Mix Drinks",
+            "description": null,
+            "price_display": "$8",
+            "sort_order": 2,
+            "is_active": true
+        },
+        {
+            "day_of_week": 3,
+            "section": "food",
+            "title": "Shepherd's Pie",
+            "description": null,
+            "price_display": "$12",
+            "sort_order": 1,
+            "is_active": true
+        },
+        {
+            "day_of_week": 3,
+            "section": "drink",
+            "title": "50% off Bottles of Wine",
+            "description": null,
+            "price_display": null,
+            "sort_order": 2,
+            "is_active": true
+        },
+        {
+            "day_of_week": 4,
+            "section": "food",
+            "title": "5 Tapas for $50",
+            "description": null,
+            "price_display": null,
+            "sort_order": 1,
+            "is_active": true
+        },
+        {
+            "day_of_week": 4,
+            "section": "drink",
+            "title": "Classic Cocktails",
+            "description": null,
+            "price_display": "$12",
+            "sort_order": 2,
+            "is_active": true
+        },
+        {
+            "day_of_week": 5,
+            "section": "food",
+            "title": "Fish & Chips (2 pc)",
+            "description": null,
+            "price_display": "$18",
+            "sort_order": 1,
+            "is_active": true
+        },
+        {
+            "day_of_week": 5,
+            "section": "drink",
+            "title": "All Beers",
+            "description": null,
+            "price_display": "$6",
+            "sort_order": 2,
+            "is_active": true
+        },
+        {
+            "day_of_week": 6,
+            "section": "food",
+            "title": "Shrimp Mac & Cheese",
+            "description": null,
+            "price_display": "$12",
+            "sort_order": 1,
+            "is_active": true
+        },
+        {
+            "day_of_week": 6,
+            "section": "drink",
+            "title": "Shooters",
+            "description": null,
+            "price_display": "$6",
+            "sort_order": 2,
+            "is_active": true
+        }
+    ]
+}

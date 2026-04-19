@@ -1,106 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>New Event Inquiry Submission</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .content {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 5px;
-            border: 1px solid #dee2e6;
-        }
-        .field {
-            margin-bottom: 15px;
-        }
-        .label {
-            font-weight: bold;
-            color: #495057;
-        }
-        .value {
-            margin-top: 5px;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #6c757d;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h2>New Event Inquiry</h2>
-        <p>Received on {{ $inquiry->created_at->format('F j, Y \a\t g:i A') }}</p>
-    </div>
+@extends('emails.layout')
 
-    <div class="content">
-        <div class="field">
-            <div class="label">Name:</div>
-            <div class="value">{{ $inquiry->first_name }} {{ $inquiry->last_name }}</div>
-        </div>
+@section('title', 'New event inquiry')
+@section('preheader', 'Event inquiry from ' . $inquiry->first_name . ' ' . $inquiry->last_name . ' — ' . $inquiry->event_type)
+@section('eyebrow', 'Events · Inquiry')
+@section('heading', 'Someone\'s planning a night.')
+@section('subheading', 'Received ' . $inquiry->created_at->format('F j, Y \a\t g:i A') . '.')
 
-        <div class="field">
-            <div class="label">Email:</div>
-            <div class="value">{{ $inquiry->email }}</div>
-        </div>
-
-        <div class="field">
-            <div class="label">Phone:</div>
-            <div class="value">{{ $inquiry->phone }}</div>
-        </div>
-
+@section('content')
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#B8860B; font-weight:600; margin-bottom:10px;">Guest</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; width:35%;">Name</td><td style="padding:5px 0; color:#0E0E0E; font-weight:600;">{{ $inquiry->first_name }} {{ $inquiry->last_name }}</td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Email</td><td style="padding:5px 0;"><a href="mailto:{{ $inquiry->email }}" style="color:#B8381F;">{{ $inquiry->email }}</a></td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Phone</td><td style="padding:5px 0;">{{ $inquiry->phone }}</td></tr>
         @if($inquiry->company)
-        <div class="field">
-            <div class="label">Company:</div>
-            <div class="value">{{ $inquiry->company }}</div>
-        </div>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Company</td><td style="padding:5px 0;">{{ $inquiry->company }}</td></tr>
         @endif
+    </table>
 
-        <div class="field">
-            <div class="label">Event Type:</div>
-            <div class="value">{{ $inquiry->event_type }}</div>
-        </div>
+    <hr style="border:0; border-top:1px solid #E9E4DA; margin:24px 0;">
 
-        <div class="field">
-            <div class="label">Guest Count:</div>
-            <div class="value">{{ $inquiry->guest_count }}</div>
-        </div>
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#B8860B; font-weight:600; margin-bottom:10px;">Event</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; width:35%;">Type</td><td style="padding:5px 0; color:#0E0E0E; font-weight:600;">{{ $inquiry->event_type }}</td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Guests</td><td style="padding:5px 0;">{{ $inquiry->guest_count }}</td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Date</td><td style="padding:5px 0;">{{ $inquiry->event_date->format('F j, Y') }}</td></tr>
+        <tr><td style="padding:5px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Time</td><td style="padding:5px 0;">{{ $inquiry->event_time }}</td></tr>
+    </table>
 
-        <div class="field">
-            <div class="label">Event Date:</div>
-            <div class="value">{{ $inquiry->event_date->format('F j, Y') }}</div>
-        </div>
-
-        <div class="field">
-            <div class="label">Event Time:</div>
-            <div class="value">{{ $inquiry->event_time }}</div>
-        </div>
-
-        @if($inquiry->details)
-        <div class="field">
-            <div class="label">Additional Details:</div>
-            <div class="value">{{ $inquiry->details }}</div>
-        </div>
-        @endif
-    </div>
-
-    <div class="footer">
-        <p>This is an automated message from your website's event inquiry form.</p>
-    </div>
-</body>
-</html> 
+    @if($inquiry->details)
+        <hr style="border:0; border-top:1px solid #E9E4DA; margin:24px 0;">
+        <div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#B8860B; font-weight:600; margin-bottom:10px;">Details</div>
+        <div style="background:#FAF7F1; border-left:3px solid #B8860B; padding:16px 18px; border-radius:4px; white-space:pre-line; color:#2A2A2A; line-height:1.6;">{{ $inquiry->details }}</div>
+    @endif
+@endsection

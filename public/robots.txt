@@ -4,10 +4,8 @@ Allow: /menu
 Allow: /about
 Allow: /contact
 Allow: /events
-<<<<<<< HEAD
 Allow: /gift-cards
-=======
->>>>>>> c7ba6d7934d22d5740e2276287a3c426467fdb82
+Allow: /daily-offers
 Allow: /terms
 Allow: /privacy
 
@@ -18,5 +16,6 @@ Disallow: /admin
 Disallow: /login
 Disallow: /register
 Disallow: /password
+Disallow: /language/
 
 Sitemap: https://districttapasham.com/sitemap.xml

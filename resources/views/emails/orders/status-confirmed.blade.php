@@ -1,145 +1,50 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmed</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            background-color: #4a2511;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        .logo {
-            max-width: 150px;
-            margin-bottom: 10px;
-        }
-        .content {
-            padding: 20px;
-            background-color: #fff;
-        }
-        .footer {
-            background-color: #f5f5f5;
-            padding: 15px;
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-        }
-        h1 {
-            color: #4a2511;
-            margin-top: 0;
-        }
-        .order-details {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-        .order-items {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .order-items th, .order-items td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        .order-items th {
-            background-color: #f2f2f2;
-        }
-        .totals {
-            margin-top: 15px;
-            text-align: right;
-        }
-        .status-badge {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 3px;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h2>District Tapas Bar & Restaurant</h2>
-        </div>
-        
-        <div class="content">
-            <h1>Your Order Has Been Confirmed</h1>
-            
-            <p>Hello {{ $order->customer_name }},</p>
-            
-            <p>Your order <strong>#{{ $order->order_number }}</strong> has been confirmed and is now being prepared.</p>
-            
-            <div class="status-badge">Confirmed</div>
-            
-            <div class="order-details">
-                <p><strong>Order Type:</strong> {{ ucfirst($order->order_type) }}</p>
-                @if($order->isPickup())
-                <p><strong>Pickup Time:</strong> {{ $order->pickup_time->format('F j, Y \a\t g:i A') }}</p>
-                @else
-                <p><strong>Delivery Address:</strong> {{ $order->delivery_address }}</p>
-                <p><strong>Estimated Delivery Time:</strong> {{ $order->pickup_time->format('F j, Y \a\t g:i A') }}</p>
-                @endif
-                
-                <h3>Order Items</h3>
-                <table class="order-items">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($order->items as $item)
-                        <tr>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->quantity }}</td>
-                            <td>${{ number_format($item->price, 2) }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                
-                <div class="totals">
-                    <p><strong>Subtotal:</strong> ${{ number_format($order->subtotal, 2) }}</p>
-                    <p><strong>Tax:</strong> ${{ number_format($order->tax, 2) }}</p>
-                    @if($order->isDelivery())
-                    <p><strong>Delivery Fee:</strong> ${{ number_format($order->delivery_fee, 2) }}</p>
-                    @if($order->tip_amount > 0)
-                    <p><strong>Tip:</strong> ${{ number_format($order->tip_amount, 2) }}</p>
-                    @endif
-                    @endif
-                    <p><strong>Total:</strong> ${{ number_format($order->total, 2) }}</p>
-                </div>
-            </div>
-            
-            <p>We'll notify you when your order is ready for pickup or out for delivery.</p>
-            
-            <p>Thank you for choosing District Tapas Bar & Restaurant!</p>
-        </div>
-        
-        <div class="footer">
-            <p>© {{ date('Y') }} District Tapas Bar & Restaurant. All rights reserved.</p>
-            <p>If you have any questions, please contact us at {{ config('restaurant.phone', '(XXX) XXX-XXXX') }}</p>
-        </div>
+@extends('emails.layout')
+
+@section('title', 'Order confirmed · #' . $order->order_number)
+@section('preheader', 'Your order #' . $order->order_number . ' is confirmed and being prepared.')
+@section('eyebrow', 'Status · Confirmed')
+@section('heading', 'We\'ve got you, ' . $order->customer_name . '.')
+@section('subheading', 'Order #' . $order->order_number . ' is confirmed — the kitchen is on it.')
+
+@section('content')
+    <div style="text-align:center; margin-bottom:28px;">
+        <span style="display:inline-block; padding:6px 16px; background:#E8F5E9; color:#2E7D32; border-radius:999px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; font-weight:700;">Confirmed</span>
     </div>
-</body>
-</html> 
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; width:40%;">Order type</td><td style="padding:6px 0;">{{ ucfirst($order->order_type) }}</td></tr>
+        @if($order->isPickup())
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Pickup time</td><td style="padding:6px 0; font-weight:600;">{{ $order->pickup_time->format('F j, g:i A') }}</td></tr>
+        @else
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Address</td><td style="padding:6px 0;">{{ $order->delivery_address }}</td></tr>
+        <tr><td style="padding:6px 0; color:#777; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Est. arrival</td><td style="padding:6px 0; font-weight:600;">{{ $order->pickup_time->format('F j, g:i A') }}</td></tr>
+        @endif
+    </table>
+
+    <hr style="border:0; border-top:1px solid #E9E4DA; margin:0 0 20px 0;">
+
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#B8860B; font-weight:600; margin-bottom:14px;">Your order</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        @foreach($order->items as $item)
+        <tr>
+            <td style="padding:10px 0; border-bottom:1px solid #F0EBDF; font-family:Georgia,serif; font-size:16px;">{{ $item->name }}</td>
+            <td style="padding:10px 0; border-bottom:1px solid #F0EBDF; text-align:right; color:#777; white-space:nowrap;">× {{ $item->quantity }}</td>
+            <td style="padding:10px 0; border-bottom:1px solid #F0EBDF; text-align:right; font-weight:600; white-space:nowrap; padding-left:16px;">${{ number_format($item->price, 2) }}</td>
+        </tr>
+        @endforeach
+    </table>
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:18px;">
+        <tr><td style="padding:4px 0; color:#555;">Subtotal</td><td style="padding:4px 0; text-align:right;">${{ number_format($order->subtotal, 2) }}</td></tr>
+        <tr><td style="padding:4px 0; color:#555;">Tax</td><td style="padding:4px 0; text-align:right;">${{ number_format($order->tax, 2) }}</td></tr>
+        @if($order->isDelivery())
+            <tr><td style="padding:4px 0; color:#555;">Delivery</td><td style="padding:4px 0; text-align:right;">${{ number_format($order->delivery_fee, 2) }}</td></tr>
+            @if($order->tip_amount > 0)
+            <tr><td style="padding:4px 0; color:#555;">Tip</td><td style="padding:4px 0; text-align:right;">${{ number_format($order->tip_amount, 2) }}</td></tr>
+            @endif
+        @endif
+        <tr><td style="padding:14px 0 4px 0; border-top:1px solid #0E0E0E; font-family:Georgia,serif; font-size:18px;">Total</td><td style="padding:14px 0 4px 0; border-top:1px solid #0E0E0E; text-align:right; font-family:Georgia,serif; font-size:18px; font-weight:600;">${{ number_format($order->total, 2) }}</td></tr>
+    </table>
+
+    <p style="margin-top:28px; font-size:13px; color:#777; text-align:center;">We'll reach out again the moment it's {{ $order->isPickup() ? 'ready for pickup' : 'on its way' }}.</p>
+@endsection

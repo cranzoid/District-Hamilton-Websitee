@@ -22,14 +22,16 @@ return [
     
     'website' => env('RESTAURANT_WEBSITE', 'https://district-tapas.com'),
     
+    'timezone' => 'America/Toronto',
+
     'hours' => [
-        'monday' => ['12:00 PM - 10:00 PM'],
-        'tuesday' => ['12:00 PM - 10:00 PM'],
-        'wednesday' => ['12:00 PM - 10:00 PM'],
-        'thursday' => ['12:00 PM - 10:00 PM'],
-        'friday' => ['12:00 PM - 12:00 AM'],
-        'saturday' => ['12:00 PM - 12:00 AM'],
-        'sunday' => ['12:00 PM - 10:00 PM'],
+        'sunday'    => ['open' => '17:00', 'close' => '21:00'],
+        'monday'    => ['closed' => true],
+        'tuesday'   => ['open' => '17:00', 'close' => '21:00'],
+        'wednesday' => ['open' => '17:00', 'close' => '21:00'],
+        'thursday'  => ['open' => '17:00', 'close' => '21:00'],
+        'friday'    => ['open' => '17:00', 'close' => '22:00'],
+        'saturday'  => ['open' => '17:00', 'close' => '22:00'],
     ],
     
     'social_media' => [

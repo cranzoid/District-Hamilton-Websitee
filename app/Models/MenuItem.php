@@ -90,7 +90,7 @@ class MenuItem extends Model
     public static function getFeaturedItems()
     {
         return self::where('is_featured', true)
-            ->where('is_active', true)
+            ->where('is_visible', true)
             ->where('is_available', true)
             ->orderBy('sort_order')
             ->get();
