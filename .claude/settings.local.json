@@ -39,7 +39,10 @@
       "Bash(php -l app/Jobs/SendOrderConfirmation.php)",
       "Bash(php -l app/Jobs/NotifyKitchenOfOrder.php)",
       "Bash(php -l app/Filament/Resources/OrderResource.php)",
-      "Bash(chmod +x \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/scripts/deploy.sh\")"
+      "Bash(chmod +x \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/scripts/deploy.sh\")",
+      "Bash(ssh district *)",
+      "Bash(ssh -o StrictHostKeyChecking=no district \"echo connected\")",
+      "Bash(xargs ls *)"
     ]
   }
 }
