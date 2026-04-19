@@ -31,13 +31,6 @@ class AdminAccessMiddleware
         ]);
 
         if (!(bool) auth()->user()->is_admin) {
-<<<<<<< HEAD
-=======
-                \Log::info('Admin access denied', [
-                'user' => auth()->user(),
-                'is_admin' => auth()->user()?->is_admin,
-    ]); 
->>>>>>> c7ba6d7934d22d5740e2276287a3c426467fdb82
             abort(403, 'User is not an admin.');
         }
 

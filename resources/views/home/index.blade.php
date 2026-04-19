@@ -6,7 +6,7 @@
 @section('content')
     {{-- HERO --}}
     <section class="hero-ed">
-        <div class="hero-ed__img" style="background-image: url('/images/Restaurant_food/hero.jpg');"></div>
+        <div class="hero-ed__bg" style="background-image: url('/images/Restaurant_food/hero.jpg'); background-size: cover; background-position: center; opacity: 0.72;"></div>
         <div class="hero-ed__scrim"></div>
         <div class="container-ed relative z-10">
             <p class="eyebrow text-paper/70 mb-6">Barton East · Hamilton</p>
