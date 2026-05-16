@@ -6,7 +6,7 @@
 @section('content')
     {{-- HERO --}}
     <section class="hero-ed">
-        <div class="hero-ed__bg" style="background-image: url('/images/Restaurant_food/hero.jpg'); background-size: cover; background-position: center; opacity: 0.72;"></div>
+        <div class="hero-ed__bg" style="background-image: url('/images/Restaurant_food/hero.jpg'); background-size: cover; background-position: center; opacity: 0.50;"></div>
         <div class="hero-ed__scrim"></div>
         <div class="container-ed relative z-10">
             <p class="eyebrow text-paper/70 mb-6">Barton East · Hamilton</p>
@@ -44,8 +44,8 @@
     <section class="section-pad bg-ink text-paper">
         <div class="container-ed">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-                <div>
-                    <p class="eyebrow text-brand-light">Tonight · {{ $todayDayName }}</p>
+                <div class="text-center md:text-left">
+                    <p class="eyebrow text-brand-light mx-auto md:mx-0">Tonight · {{ $todayDayName }}</p>
                     <h2 class="font-display text-4xl md:text-5xl font-light italic mt-3">On the board today</h2>
                 </div>
                 <a href="{{ route('daily-offers') }}" class="arrow-link text-brand-light">

@@ -16,17 +16,30 @@ class OrderNotificationService
     {
         $settings = SiteSetting::first();
         $adminEmail = $settings?->admin_email ?? config('mail.from.address');
-        
+
         $subject = "New Order Received - #{$order->order_number}";
-        $orderType = ucfirst($order->order_type);
-        $html = "
-            <h2>New {$orderType} Order Received</h2>
-            <p>A new order (#{$order->order_number}) has been received.</p>
-            <p>Customer: {$order->customer_name}</p>
-            <p>Order Total: $" . number_format($order->total, 2) . "</p>
-            <p>You can view and manage this order in the admin panel.</p>
-        ";
-        
+
+        $html = view('emails.orders.received', [
+            'order'          => $order,
+            'customerName'   => $order->customer_name,
+            'customerEmail'  => $order->customer_email,
+            'customerPhone'  => $order->customer_phone,
+            'orderNumber'    => $order->order_number,
+            'orderType'      => $order->order_type,
+            'deliveryAddress'=> $order->delivery_address,
+            'orderStatus'    => $order->status,
+            'paymentMethod'  => $order->payment_method,
+            'paymentStatus'  => $order->payment_status,
+            'subtotal'       => number_format($order->subtotal, 2),
+            'tax'            => number_format($order->tax, 2),
+            'deliveryFee'    => number_format($order->delivery_fee, 2),
+            'total'          => number_format($order->total, 2),
+            'items'          => $order->items()->with(['menuItem', 'addOns'])->get(),
+            'pickupTime'     => $order->pickup_time,
+            'notes'          => $order->notes,
+            'orderUrl'       => route('filament.admin.resources.orders.edit', $order->id),
+        ])->render();
+
         return $this->sendEmail($adminEmail, $subject, $html);
     }
     

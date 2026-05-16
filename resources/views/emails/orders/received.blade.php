@@ -38,7 +38,7 @@
         @foreach($items as $item)
         <tr>
             <td style="padding:12px 0; border-bottom:1px solid #F0EBDF; vertical-align:top;">
-                <div style="font-family:Georgia,serif; font-size:17px; color:#0E0E0E;">{{ $item->menuItem->name ?? 'Item' }}</div>
+                <div style="font-family:Georgia,serif; font-size:17px; color:#0E0E0E;">{{ $item->name }}</div>
                 @if($item->special_instructions)
                     <div style="margin-top:4px; font-size:12px; color:#B8381F; font-style:italic;">“{{ $item->special_instructions }}”</div>
                 @endif

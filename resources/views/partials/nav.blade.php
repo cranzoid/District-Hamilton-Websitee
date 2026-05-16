@@ -20,7 +20,7 @@
     </div>
 @endif
 
-<nav class="nav-ed" x-data="{ open: false }" :data-scrolled="$store.ui.scrolled">
+<nav class="nav-ed" x-data :data-scrolled="$store.ui.scrolled">
     <div class="container-ed flex items-center justify-between py-4 md:py-5">
         <a href="{{ route('home') }}" class="flex items-center gap-2 group" aria-label="{{ config('app.name') }} — Home">
             <span class="font-display text-xl md:text-2xl leading-none tracking-tight">
@@ -56,7 +56,7 @@
                 </span>
             </a>
 
-            <a href="#reservation-widget" class="hidden md:inline-flex btn btn-ember btn-sm">Reserve</a>
+            <a href="{{ route('home') }}#reservation-widget" class="hidden md:inline-flex btn btn-ember btn-sm">Reserve</a>
 
             @if ($enableFrench)
                 <a href="{{ route('language.switch', app()->getLocale() == 'en' ? 'fr' : 'en') }}"
@@ -65,7 +65,7 @@
                 </a>
             @endif
 
-            <button @click="open = true" class="lg:hidden p-2 -mr-2" aria-label="Open menu">
+            <button @click="$store.ui.navOpen = true" class="lg:hidden p-2 -mr-2" aria-label="Open menu">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16"/>
                 </svg>
@@ -73,40 +73,44 @@
         </div>
     </div>
 
-    {{-- Mobile panel --}}
-    <div x-show="open"
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 translate-x-4"
-         x-transition:enter-end="opacity-100 translate-x-0"
-         x-transition:leave="transition ease-in duration-200"
-         x-transition:leave-start="opacity-100 translate-x-0"
-         x-transition:leave-end="opacity-0 translate-x-4"
-         @keydown.escape.window="open = false"
-         class="mobile-panel"
-         x-cloak>
-        <button @click="open = false" class="absolute top-5 right-5 p-2" aria-label="Close menu">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-        </button>
-        <div class="flex flex-col gap-2 mt-8">
-            @foreach ($navLinks as $link)
-                <a href="{{ Route::has($link['name']) ? route($link['name']) : '#' }}"
-                   @click="open = false"
-                   class="block py-2 {{ in_array($current, $link['match']) ? 'text-brand' : '' }}">
-                    {{ $link['label'] }}
-                </a>
-            @endforeach
-            <a href="{{ route('cart.index') }}" @click="open = false" class="block py-2">Cart</a>
-        </div>
-        <div class="mt-auto pt-8 border-t border-white/10">
-            <a href="#reservation-widget" @click="open = false" class="btn btn-ember btn-block">Reserve a table</a>
-            <p class="text-center text-xs text-paper/60 tracking-[0.2em] uppercase mt-6">
-                61 Barton St E · Hamilton
-            </p>
-            <p class="text-center text-sm text-paper/80 mt-1">
-                <a href="tel:+19055222580">(905) 522-2580</a>
-            </p>
-        </div>
-    </div>
 </nav>
+
+@push('mobile-nav')
+{{-- Mobile panel rendered at body root to avoid nav's backdrop-filter containing-block trap --}}
+<div x-data
+     x-show="$store.ui.navOpen"
+     x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="opacity-0 translate-x-4"
+     x-transition:enter-end="opacity-100 translate-x-0"
+     x-transition:leave="transition ease-in duration-200"
+     x-transition:leave-start="opacity-100 translate-x-0"
+     x-transition:leave-end="opacity-0 translate-x-4"
+     @keydown.escape.window="$store.ui.navOpen = false"
+     class="mobile-panel"
+     x-cloak>
+    <button @click="$store.ui.navOpen = false" class="absolute top-5 right-5 p-2 text-paper" aria-label="Close menu">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+    </button>
+    <div class="flex flex-col gap-2 mt-8">
+        @foreach ($navLinks as $link)
+            <a href="{{ Route::has($link['name']) ? route($link['name']) : '#' }}"
+               @click="$store.ui.navOpen = false"
+               class="block py-2 text-paper {{ in_array($current, $link['match']) ? '!text-brand' : '' }}">
+                {{ $link['label'] }}
+            </a>
+        @endforeach
+        <a href="{{ route('cart.index') }}" @click="$store.ui.navOpen = false" class="block py-2 text-paper">Cart</a>
+    </div>
+    <div class="mt-auto pt-8 border-t border-white/10">
+        <a href="{{ route('home') }}#reservation-widget" @click="$store.ui.navOpen = false" class="btn btn-ember btn-block">Reserve a table</a>
+        <p class="text-center text-xs text-paper/60 tracking-[0.2em] uppercase mt-6">
+            61 Barton St E · Hamilton
+        </p>
+        <p class="text-center text-sm text-paper/80 mt-1">
+            <a href="tel:+19055222580" class="text-paper/80">(905) 522-2580</a>
+        </p>
+    </div>
+</div>
+@endpush

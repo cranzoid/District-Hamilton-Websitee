@@ -427,7 +427,8 @@ use App\Models\TippingSetting;
                                 card: cardElement,
                                 billing_details: {
                                     name: document.getElementById('name').value,
-                                    email: document.getElementById('email').value
+                                    email: document.getElementById('email').value,
+                                    phone: document.getElementById('phone').value,
                                 }
                             }
                         });

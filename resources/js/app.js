@@ -9,6 +9,7 @@ window.Alpine = Alpine;
 /* ---------- Global Alpine store: cart count + toast ------------------------ */
 Alpine.store('ui', {
     cartCount: 0,
+    navOpen: false,
     toast: { show: false, message: '', tone: 'success' },
     scrolled: false,
 

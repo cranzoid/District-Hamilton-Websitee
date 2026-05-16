@@ -113,7 +113,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     padding-inline: clamp(1rem, 2.5vw, 2.5rem);
 }
 
-.container-ed--narrow { max-width: 960px; }
+.container-ed--narrow {
+    width: 100%;
+    max-width: 960px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 2.5vw, 2.5rem);
+}
 .container-ed--reading { max-width: 680px; }
 
 .section-pad { padding-block: clamp(3.5rem, 8vw, 7rem); }
@@ -136,27 +141,60 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 /*  EDITORIAL TYPOGRAPHY HELPERS                                              */
 /* -------------------------------------------------------------------------- */
 
-.eyebrow {
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: var(--color-ink-muted);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+/* Placed in @layer components so Tailwind utility classes (text-brand-light,
+   text-paper/70, etc.) can override the default colors where needed. */
+@layer components {
+    .eyebrow {
+        font-family: var(--font-sans);
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--color-ink-muted);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .eyebrow::before {
+        content: '';
+        display: inline-block;
+        width: 1.5rem;
+        height: 1px;
+        background: currentColor;
+    }
+
+    .eyebrow--center::before { display: none; }
+
+    .lede {
+        font-family: var(--font-display);
+        font-weight: 300;
+        font-size: clamp(1.15rem, 1vw + 1rem, 1.5rem);
+        line-height: 1.45;
+        color: var(--color-ink-soft);
+    }
+
+    .arrow-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        letter-spacing: 0.04em;
+        color: var(--color-ink);
+        border-bottom: 1px solid var(--color-ink);
+        padding-bottom: 2px;
+        transition: color .18s, border-color .18s, gap .18s;
+    }
+
+    .arrow-link:hover { color: var(--color-ember); border-color: var(--color-ember); gap: 0.85rem; }
+    .arrow-link svg { width: 1rem; height: 1rem; }
 }
 
-.eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 1.5rem;
-    height: 1px;
-    background: currentColor;
-}
-
-.eyebrow--center::before { display: none; }
+/* Dark-section overrides — higher specificity than @layer utilities so these
+   always win inside .subhero regardless of Tailwind utility classes. */
+.subhero .eyebrow { color: rgba(247, 243, 236, 0.55); }
+.subhero .lede    { color: rgba(247, 243, 236, 0.75); }
 
 .display-hero {
     font-family: var(--font-display);
@@ -170,14 +208,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     font-style: italic;
     font-variation-settings: "opsz" 144;
     color: var(--color-brand);
-}
-
-.lede {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(1.15rem, 1vw + 1rem, 1.5rem);
-    line-height: 1.45;
-    color: var(--color-ink-soft);
 }
 
 .numeral {
@@ -287,21 +317,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .order-now { background: var(--color-ember); color: #fff; border-color: var(--color-ember); }
 .order-now:hover { background: var(--color-ember-dark); border-color: var(--color-ember-dark); transform: translateY(-1px); }
 
-/* Arrow link */
-.arrow-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    font-size: 0.875rem;
-    letter-spacing: 0.04em;
-    color: var(--color-ink);
-    border-bottom: 1px solid var(--color-ink);
-    padding-bottom: 2px;
-    transition: color .18s, border-color .18s, gap .18s;
-}
-.arrow-link:hover { color: var(--color-ember); border-color: var(--color-ember); gap: 0.85rem; }
-.arrow-link svg { width: 1rem; height: 1rem; }
+/* Arrow link rules moved to @layer components above */
 
 /* -------------------------------------------------------------------------- */
 /*  FORMS                                                                     */
@@ -520,19 +536,23 @@ select.field {
 /*  ALERT / FLASH                                                             */
 /* -------------------------------------------------------------------------- */
 
-.alert {
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-    padding: 1rem 1.25rem;
-    border-radius: 10px;
-    border: 1px solid;
-    font-size: 0.9rem;
+/* In @layer components so Tailwind's `hidden` utility (display:none) wins —
+   prevents the empty response div showing before form submission. */
+@layer components {
+    .alert {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        border: 1px solid;
+        font-size: 0.9rem;
+    }
+    .alert-success { background: #ECFDF5; border-color: #A7F3D0; color: #065F46; }
+    .alert-error   { background: #FEF2F2; border-color: #FECACA; color: #7F1D1D; }
+    .alert-warn    { background: #FFFBEB; border-color: #FDE68A; color: #78350F; }
+    .alert-info    { background: rgba(184, 56, 31, 0.08); border-color: rgba(184,56,31,0.25); color: var(--color-ember-dark); }
 }
-.alert-success { background: #ECFDF5; border-color: #A7F3D0; color: #065F46; }
-.alert-error   { background: #FEF2F2; border-color: #FECACA; color: #7F1D1D; }
-.alert-warn    { background: #FFFBEB; border-color: #FDE68A; color: #78350F; }
-.alert-info    { background: rgba(184, 56, 31, 0.08); border-color: rgba(184,56,31,0.25); color: var(--color-ember-dark); }
 
 /* -------------------------------------------------------------------------- */
 /*  DISH CARD / MENU LIST                                                     */
@@ -605,7 +625,7 @@ select.field {
 .hero-ed__scrim {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(14,14,14,0.25) 0%, rgba(14,14,14,0.55) 60%, rgba(14,14,14,0.75) 100%);
+    background: linear-gradient(180deg, rgba(14,14,14,0.50) 0%, rgba(14,14,14,0.65) 60%, rgba(14,14,14,0.82) 100%);
 }
 .hero-ed__body {
     position: relative;

@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Order;
 use App\Services\OrderNotificationService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class OrderObserver
@@ -13,13 +14,15 @@ class OrderObserver
      */
     public function created(Order $order): void
     {
-        // Send admin notification for new orders
-        try {
-            $notificationService = new OrderNotificationService();
-            $notificationService->sendAdminNewOrderNotification($order);
-        } catch (\Exception $e) {
-            Log::error('Failed to send admin new order notification: ' . $e->getMessage());
-        }
+        // Defer until after the DB transaction commits so order items are available
+        DB::afterCommit(function () use ($order) {
+            try {
+                $notificationService = new OrderNotificationService();
+                $notificationService->sendAdminNewOrderNotification($order);
+            } catch (\Exception $e) {
+                Log::error('Failed to send admin new order notification: ' . $e->getMessage());
+            }
+        });
     }
 
     /**

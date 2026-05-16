@@ -22,11 +22,11 @@
             </p>
             <div class="mt-8 inline-flex p-1 bg-paper-deep rounded-full">
                 <a href="{{ route('menu.index') }}"
-                   class="px-6 py-2 rounded-full text-sm font-semibold uppercase tracking-[0.14em] transition {{ $section === 'food' ? 'bg-ink text-paper' : 'text-ink-muted hover:text-ink' }}">
+                   class="px-6 py-2 rounded-full text-sm font-semibold uppercase tracking-[0.14em] transition {{ $section === 'food' ? 'bg-ink text-paper' : 'text-ink hover:text-brand' }}">
                     Kitchen
                 </a>
                 <a href="{{ route('menu.drinks') }}"
-                   class="px-6 py-2 rounded-full text-sm font-semibold uppercase tracking-[0.14em] transition {{ $section === 'drink' ? 'bg-ink text-paper' : 'text-ink-muted hover:text-ink' }}">
+                   class="px-6 py-2 rounded-full text-sm font-semibold uppercase tracking-[0.14em] transition {{ $section === 'drink' ? 'bg-ink text-paper' : 'text-ink hover:text-brand' }}">
                     Bar
                 </a>
             </div>
@@ -71,7 +71,7 @@
                     @if($category->menuItems->count() > 0)
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach($category->menuItems as $item)
-                                @include('partials.dish-card', ['item' => $item])
+                                @include('partials.dish-card', ['item' => $item, 'showAddToCart' => $section !== 'drink'])
                             @endforeach
                         </div>
                     @else

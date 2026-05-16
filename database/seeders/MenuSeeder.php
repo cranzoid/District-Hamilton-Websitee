@@ -13,10 +13,19 @@ class MenuSeeder extends Seeder
     {
         $data = json_decode(file_get_contents(database_path('data/menu.json')), true);
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        $driver = DB::getDriverName();
+        if ($driver === 'sqlite') {
+            DB::statement('PRAGMA foreign_keys = OFF');
+        } else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        }
         MenuItem::truncate();
         Category::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        if ($driver === 'sqlite') {
+            DB::statement('PRAGMA foreign_keys = ON');
+        } else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        }
 
         foreach ($data['categories'] as $cat) {
             Category::create([

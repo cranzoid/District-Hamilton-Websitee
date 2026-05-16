@@ -67,59 +67,79 @@ class CartController extends Controller
             'add_ons.*' => 'exists:add_ons,id',
             'special_instructions' => 'nullable|string|max:255',
         ]);
-        
-        // Find the menu item
-        $menuItem = MenuItem::with('addOns')->findOrFail($request->item_id);
-        
-        // Check if the item is available
+
+        $menuItem = MenuItem::with(['addOns', 'category'])->findOrFail($request->item_id);
+
         if (!$menuItem->is_available) {
             if ($request->expectsJson()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'This item is currently not available.'
-                ], 400);
+                return response()->json(['success' => false, 'message' => 'This item is currently not available.'], 400);
             }
             return redirect()->back()->with('error', 'This item is currently not available.');
         }
-        
-        // Generate a unique cart item ID
-        $cartItemId = uniqid();
-        
-        // Calculate the base price
+
+        // Drinks are view-only — not available for online ordering
+        if ($menuItem->category && $menuItem->category->section === \App\Models\Category::SECTION_DRINK) {
+            if ($request->expectsJson()) {
+                return response()->json(['success' => false, 'message' => 'Drinks are not available for online ordering.'], 400);
+            }
+            return redirect()->back()->with('error', 'Drinks are not available for online ordering.');
+        }
+
         $price = $menuItem->price;
-        
-        // Get the cart from the session
-        $cart = session()->get('cart', []);
-        
-        // Add the item to the cart
-        $cart[$cartItemId] = [
-            'item_id' => $menuItem->id,
-            'name' => $menuItem->name,
-            'price' => $price,
-            'quantity' => $request->quantity,
-            'add_ons' => $request->add_ons ?? [],
-            'special_instructions' => $request->special_instructions,
-            'image_path' => 'storage/' . $menuItem->image_path
-        ];
-        
-        // Update the session
+        $cart  = session()->get('cart', []);
+
+        // Normalize add-ons and instructions for deduplication comparison
+        $addOns = $request->add_ons ?? [];
+        sort($addOns);
+        $instructions = trim($request->special_instructions ?? '');
+
+        // Find an existing cart slot with identical item + add-ons + instructions
+        $existingKey = null;
+        foreach ($cart as $key => $cartItem) {
+            $existingAddOns = $cartItem['add_ons'] ?? [];
+            sort($existingAddOns);
+            if (
+                $cartItem['item_id'] === $menuItem->id &&
+                $existingAddOns === $addOns &&
+                trim($cartItem['special_instructions'] ?? '') === $instructions
+            ) {
+                $existingKey = $key;
+                break;
+            }
+        }
+
+        if ($existingKey !== null) {
+            $cart[$existingKey]['quantity'] += $request->quantity;
+        } else {
+            $cartItemId = uniqid();
+            $cart[$cartItemId] = [
+                'item_id'              => $menuItem->id,
+                'name'                 => $menuItem->name,
+                'price'                => $price,
+                'quantity'             => $request->quantity,
+                'add_ons'              => $addOns,
+                'special_instructions' => $instructions,
+                'image_path'           => 'storage/' . $menuItem->image_path,
+            ];
+        }
+
         session()->put('cart', $cart);
-        
-        // Return JSON response if requested
+
+        $totalQty = array_sum(array_column($cart, 'quantity'));
+
         if ($request->expectsJson()) {
             return response()->json([
-                'success' => true,
-                'message' => 'Item added to cart successfully!',
-                'cart_count' => count($cart),
-                'item' => [
-                    'id' => $cartItemId,
-                    'name' => $menuItem->name,
-                    'price' => $price,
-                    'quantity' => $request->quantity
-                ]
+                'success'    => true,
+                'message'    => 'Item added to cart successfully!',
+                'cart_count' => $totalQty,
+                'item'       => [
+                    'name'     => $menuItem->name,
+                    'price'    => $price,
+                    'quantity' => $request->quantity,
+                ],
             ]);
         }
-        
+
         return redirect()->back()->with('success', 'Item added to cart successfully!');
     }
     

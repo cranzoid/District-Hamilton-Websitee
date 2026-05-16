@@ -89,7 +89,7 @@
                 </dl>
 
                 <div class="mt-10 flex flex-wrap gap-3">
-                    <a href="#reservation-widget" class="btn btn-ember">Reserve</a>
+                    <a href="{{ route('home') }}#reservation-widget" class="btn btn-ember">Reserve</a>
                     <a href="{{ route('contact') }}" class="btn btn-outline">Contact us</a>
                 </div>
             </div>

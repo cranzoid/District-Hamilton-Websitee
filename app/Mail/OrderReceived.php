@@ -63,7 +63,7 @@ class OrderReceived extends Mailable implements ShouldQueue
                 'tax' => number_format($this->order->tax, 2),
                 'deliveryFee' => number_format($this->order->delivery_fee, 2),
                 'total' => number_format($this->order->total, 2),
-                'items' => $this->order->items,
+                'items' => $this->order->items()->with(['menuItem', 'addOns'])->get(),
                 'pickupTime' => $this->order->pickup_time,
                 'notes' => $this->order->notes,
                 'orderUrl' => route('filament.admin.resources.orders.edit', $this->order->id),

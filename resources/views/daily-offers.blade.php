@@ -70,7 +70,7 @@
             </div>
 
             <div class="text-center mt-14">
-                <a href="#reservation-widget" class="btn btn-ember btn-lg">Reserve for tonight</a>
+                <a href="{{ route('home') }}#reservation-widget" class="btn btn-ember btn-lg">Reserve for tonight</a>
             </div>
         </div>
     </section>

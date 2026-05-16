@@ -42,7 +42,25 @@
       "Bash(chmod +x \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/scripts/deploy.sh\")",
       "Bash(ssh district *)",
       "Bash(ssh -o StrictHostKeyChecking=no district \"echo connected\")",
-      "Bash(xargs ls *)"
+      "Bash(xargs ls *)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/app/Http/Middleware/AdminAccessMiddleware.php\" district:/var/www/html/myapp/app/Http/Middleware/AdminAccessMiddleware.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/app/Http/Middleware/AdminAccessMiddleware.php\" district:/tmp/AdminAccessMiddleware.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/resources/css/app.css\" district:/tmp/app.css)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/resources/views/home/index.blade.php\" district:/tmp/index.blade.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/database/seeders/MenuSeeder.php\" district:/tmp/MenuSeeder.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/database/seeders/DailyOfferSeeder.php\" district:/tmp/DailyOfferSeeder.php)",
+      "Bash(scp resources/css/app.css district:/tmp/app.css)",
+      "Bash(scp resources/js/app.js district:/tmp/app.js)",
+      "Bash(scp resources/views/about/index.blade.php district:/tmp/about_index.blade.php)",
+      "Bash(scp resources/views/daily-offers.blade.php district:/tmp/daily-offers.blade.php)",
+      "Bash(scp resources/views/home/index.blade.php district:/tmp/home_index.blade.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/app/Http/Controllers/CartController.php\" district:/tmp/CartController.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/resources/views/menu/index.blade.php\" district:/tmp/menu_index.blade.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/app/Mail/OrderReceived.php\" district:/tmp/OrderReceived.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/app/Mail/OrderConfirmation.php\" district:/tmp/OrderConfirmation.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/resources/views/emails/orders/received.blade.php\" district:/tmp/received.blade.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/app/Services/OrderNotificationService.php\" district:/tmp/OrderNotificationService.php)",
+      "Bash(scp \"/Users/cranzoid/DISTRICT NEW WEBSITE/District-Hamilton-Websitee/app/Observers/OrderObserver.php\" district:/tmp/OrderObserver.php)"
     ]
   }
 }

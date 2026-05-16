@@ -41,5 +41,8 @@
     @include('partials.toast')
 
     @stack('scripts')
+
+    {{-- Mobile panel lives here (outside nav) to avoid backdrop-filter containing-block trap --}}
+    @stack('mobile-nav')
 </body>
 </html>
